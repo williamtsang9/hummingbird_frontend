@@ -1,0 +1,25 @@
+<ion-view view-title="New Message">
+  <ion-content>
+    <form ng-submit="scheduleMessage(message)">
+      <div class="list">
+        <label class="item item-input">
+          <input type="tel" ng-model="message.contact" placeholder="contact #">      
+        </label>
+        <label class="item item-input">
+          <input type="date" ng-model="message.date" placeholder="select date">
+        </label>
+          <label class="item item-input">
+            <input type="time" ng-model="message.date" placeholder="select time">
+        </label>
+        <label class="item item-input">
+          <textarea ng-model="message.content" placeholder="type your message here"></textarea>
+        </label>
+        <!-- <input type="submit" name="Schedule"> -->
+
+      </div>
+      <button class="button button-positive">Schedule</button>
+
+
+    </form>
+  </ion-content>
+</ion-view>
