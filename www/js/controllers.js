@@ -44,13 +44,15 @@ angular.module('starter.controllers', [])
   $scope.scheduleMessage = function(message){
     console.log(message);
     var data = {
-      number: message.contact
+      number: message.contact,
+      body: message.content
     };
-  debugger
+  // debugger
     // post route to backend
     var req = {
       method: 'POST',
-      url: 'http://localhost:3000/users/1/send_verification_code',
+      // url: 'http://localhost:3000/users/1/send_verification_code',
+      url: 'http://localhost:3000/users/1/messages',
       data: data
     }
 
