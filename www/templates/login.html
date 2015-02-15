@@ -1,12 +1,12 @@
 <ion-modal-view>
   <ion-header-bar>
     <h1 class="title">Welcome {{user.name}}!</h1>
-    <div class="buttons">
+<!--     <div class="buttons">
       <button class="button button-clear" ng-click="closeLogin()">Close</button>
-    </div>
+    </div> -->
   </ion-header-bar>
   <ion-content>
-    <button class="button button-block button-positive" ng-click="login()" ng-hide="activeSession">Log in with Google</button>
-    <button class="button button-block button-positive" ng-click="logout()" ng-show="activeSession">Log Out</button>
+    <button class="button button-block button-positive" ng-click="login()" ng-hide="activeSession()">Log in with Google</button>
+    <button class="button button-block button-positive" ng-click="logout()" ng-show="activeSession()">Log Out</button>
   </ion-content>
 </ion-modal-view>
