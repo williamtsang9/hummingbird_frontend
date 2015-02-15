@@ -1,6 +1,12 @@
-angular.module('starter.controllers', [])
+angular.module('starter.controllers', ['ng-token-auth'])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout) {
+.config(function($authProvider) {
+  $authProvider.configure({
+    apiUrl: 'http://localhost:3000' //your api's url
+  });
+})
+
+.controller('AppCtrl', function($scope, $ionicModal, $auth) {
   // Form data for the login modal
   $scope.loginData = {};
 
@@ -17,25 +23,41 @@ angular.module('starter.controllers', [])
   };
 
   // Open the login modal
-  $scope.login = function() {
+  $scope.showLogin = function() {
     $scope.modal.show();
   };
 
-  // Oauth Login
-  $scope.authenticate = function(platform){
-    console.log("we about to authenticate!!!")
+  //OAUTH SIGN IN
+  $scope.login = function() {
+    $auth.authenticate('google')
+    .then(function(resp) {
+      $scope.user = resp;
+      // if (resp.phone_number) {
+      $scope.activeSession = true;
+      // } else {
+        // display the page/modal where they enter their phonenumber
+        // on that modal, have a button that hits the send_verification_code route
+        // then next modal, have a button that hits the verify_code route
+        // then the backend needs to save the phone number as valid, ELSE this modal redisplays with errors
+      // }
+    })
+    .catch(function(resp) {
+      console.log("error")
+    });
   };
 
-  // Perform the login action when the user submits the login form
-  // $scope.doLogin = function() {
-  //   console.log('Doing login', $scope.loginData);
 
-  //   // Simulate a login delay. Remove this and replace with your login
-  //   // code if using a login system
-  //   $timeout(function() {
-  //     $scope.closeLogin();
-  //   }, 1000);
-  // };
+  // //OAUTH SIGN OUT
+  $scope.logout= function() {
+    $auth.signOut()
+    .then(function(resp) {
+      $scope.activeSession = false;
+      console.log("WUNDABAR!!!")
+    })
+    .catch(function(resp) {
+      console.log("SOMETHING TERRIBLE HAS HAPPENED")
+    });
+  };
 })
 
 
@@ -47,7 +69,7 @@ angular.module('starter.controllers', [])
     var data = {
       number: message.contact
     };
-  // debugger
+
     // post route to backend
     var req = {
       method: 'POST',
@@ -56,8 +78,8 @@ angular.module('starter.controllers', [])
     }
 
     $http(req)
-      .success(function(response){console.log(response)})
-      .error(function(response){console.log(response)});
+    .success(function(response){console.log(response)})
+    .error(function(response){console.log(response)});
   }
 })
 
