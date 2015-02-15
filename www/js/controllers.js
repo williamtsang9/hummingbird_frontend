@@ -6,7 +6,7 @@ angular.module('starter.controllers', ['ng-token-auth'])
           });
 })
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout) {
+.controller('AppCtrl', function($scope, $ionicModal, $auth) {
   // Form data for the login modal
   $scope.loginData = {};
 
@@ -28,16 +28,36 @@ angular.module('starter.controllers', ['ng-token-auth'])
   };
 
   //OAUTH SIGN IN
-  $scope.handleBtnClick = function() {
-    $auth.authenticate('google')
-    .then(function(resp) {
-      alert('something successful happened')
+  // $scope.handleBtnClick = function() {
+  //   $auth.authenticate('google')
+  //   .then(function(resp) {
+  //     var user = resp
+  //     debugger
+  //   })
+  //   .catch(function(resp) {
+  //       console.log("SOMETHING TERRIBLE HAS HAPPENED")
+  //     });
+  // };
+
+
+
+  var login = function(){
+    return $auth.authenticate('google')
+    .then(function(response) {
+      console.log(response)
+      return response
     })
     .catch(function(resp) {
-        // handle errors
-        alert('something terrible happened')
+        console.log("SOMETHING TERRIBLE HAS HAPPENED")
       });
-  };
+  }
+
+  login().then(function(resp){
+    debugger
+    $scope.user = resp.data
+  });
+
+
 
   //OAUTH SIGN OUT
   $scope.handleSignOutBtnClick = function() {
