@@ -57,12 +57,13 @@ angular.module('starter.controllers', ['ng-token-auth'])
   }
 })
 
-.controller('VerifyCodeCtrl', function($scope, $http) {
+.controller('VerifyCodeCtrl', function($scope, $http, $state) {
   $scope.verifyCode = function(verificationCode){
     console.log(verificationCode);
     var data = {
       number: verificationCode
     };
+    debugger
     var userId = window.localStorage['user_id']
     var req = {
       method: 'POST',
@@ -72,7 +73,11 @@ angular.module('starter.controllers', ['ng-token-auth'])
     // make sure backend returns a JSON with verification state
     // handle state from there.
     $http(req)
-      .success(function(response){console.log("Success: "+response)})
+      .success(function(response){
+        debugger
+        window.localStorage['phone_verified'] = response.phone_verified;
+        $state.go('app.new_message');
+      })
       .error(function(response){console.log(response)});
   }
 })
@@ -121,7 +126,12 @@ angular.module('starter.controllers', ['ng-token-auth'])
       window.localStorage['user_name'] = resp.name;
       window.localStorage['phone_verified'] = resp.phone_verified;
       window.localStorage['activeSession'] = true;
-      $state.go('app.enter_user_phone');
+      if (window.localStorage.phone_verified === "false") {
+        console.log("need to verify #")
+        $state.go('app.enter_user_phone');
+      } else if (window.localStorage.phone_verified === "true") {
+        $state.go('app.new_message');
+      };
     })
     .catch(function(resp) {
       console.log("error")
