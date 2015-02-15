@@ -8,49 +8,49 @@ angular.module('starter.controllers', ['ng-token-auth'])
 
 .controller('AppCtrl', function($scope, $ionicModal, $auth) {
   // Create the login modal that we will use later
-  $ionicModal.fromTemplateUrl('templates/login.html', {
-    scope: $scope
-  }).then(function(modal) {
-    $scope.modal = modal;
-  });
+  // $ionicModal.fromTemplateUrl('templates/login.html', {
+    // scope: $scope
+  // }).then(function(modal) {
+    // $scope.modal = modal;
+  // });
 
-  // Triggered in the login modal to close it
-  $scope.closeLogin = function() {
-    $scope.modal.hide();
-  };
+  // // Triggered in the login modal to close it
+  // $scope.closeLogin = function() {
+  //   $scope.modal.hide();
+  // };
 
-  // Open the login modal
-  $scope.showLogin = function() {
-    $scope.modal.show();
-  };
+  // // Open the login modal
+  // $scope.showLogin = function() {
+  //   $scope.modal.show();
+  // };
 
-  //OAUTH SIGN IN
-  $scope.login = function() {
-    $auth.authenticate('google')
-    .then(function(resp) {
-      $scope.user = resp;
-      window.localStorage['activeSession'] = true;
+  // //OAUTH SIGN IN
+  // $scope.login = function() {
+  //   $auth.authenticate('google')
+  //   .then(function(resp) {
+  //     $scope.user = resp;
+  //     window.localStorage['activeSession'] = true;
 
-    })
-    .catch(function(resp) {
-      console.log("error")
-    });
-  };
+  //   })
+  //   .catch(function(resp) {
+  //     console.log("error")
+  //   });
+  // };
 
-  $scope.activeSession = function(){
-    return window.localStorage['activeSession'] === "true";
-  }
+  // $scope.activeSession = function(){
+  //   return window.localStorage['activeSession'] === "true";
+  // }
 
-  // //OAUTH SIGN OUT
-  $scope.logout= function() {
-    $auth.signOut()
-    .then(function(resp) {
-      window.localStorage['activeSession'] = false;
-      console.log("WUNDABAR!!!")
-    })
-    .catch(function(resp) {
-      console.log("SOMETHING TERRIBLE HAS HAPPENED")
-    });
+  // // //OAUTH SIGN OUT
+  // $scope.logout= function() {
+  //   $auth.signOut()
+  //   .then(function(resp) {
+  //     window.localStorage['activeSession'] = false;
+  //     console.log("WUNDABAR!!!")
+  //   })
+  //   .catch(function(resp) {
+  //     console.log("SOMETHING TERRIBLE HAS HAPPENED")
+  //   });
 
       // if (resp.phone_number) {
         // has phonenumber
@@ -60,7 +60,7 @@ angular.module('starter.controllers', ['ng-token-auth'])
         // then next modal, have a button that hits the verify_code route
         // then the backend needs to save the phone number as valid, ELSE this modal redisplays with errors
       // }
-  };
+  // };
 })
 
 
