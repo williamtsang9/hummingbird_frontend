@@ -1,0 +1,16 @@
+<ion-view view-title="Send Verification Code">
+  <ion-content>
+    <form ng-submit="sendVerificationCode(message)">
+      <div class="list">
+        <label class="item item-input">
+          <input type="tel" ng-model="message.contact" placeholder="your number">
+        </label>
+        <label class="item">
+          <button class="button button-block button-positive" type="submit">Send Verification Code</button>
+        </label>
+      </div>
+    </form>
+  </ion-content>
+</ion-view>
+
+
