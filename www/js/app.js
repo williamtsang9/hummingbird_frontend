@@ -32,12 +32,12 @@ angular.module('starter', ['ionic', 'starter.controllers'])
   })
 
 // SEND VERIFICATION CODE
-  .state('app.send_verification_code', {
-    url: "/send_verification_code",
+  .state('app.enter_user_phone', {
+    url: "/enter_user_phone",
     views: {
       'menuContent': {
-        templateUrl: "templates/send_verification_code.html",
-        controller: 'SendVerificationCodeCtrl'
+        templateUrl: "templates/login/enter_user_phone.html",
+        controller: 'EnterUserPhoneCtrl'
       }
     }
   })
@@ -47,7 +47,7 @@ angular.module('starter', ['ionic', 'starter.controllers'])
     url: "/verify_code",
     views: {
       'menuContent': {
-        templateUrl: "templates/verify_code.html",
+        templateUrl: "templates/login/verify_code.html",
         controller: 'VerifyCodeCtrl'
       }
     }
@@ -66,7 +66,7 @@ angular.module('starter', ['ionic', 'starter.controllers'])
 
   .state('login', {
     url: "/login",
-    templateUrl: "templates/login.html",
+    templateUrl: "templates/login/login.html",
     controller: 'LoginCtrl'
   })
 

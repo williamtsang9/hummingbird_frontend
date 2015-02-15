@@ -32,7 +32,7 @@ angular.module('starter.controllers', ['ng-token-auth'])
 })
 
 
-.controller('SendVerificationCodeCtrl', function($scope, $http) {
+.controller('EnterUserPhoneCtrl', function($scope, $http, $state) {
   $scope.message = {};
 
   $scope.sendVerificationCode = function(message){
@@ -40,38 +40,39 @@ angular.module('starter.controllers', ['ng-token-auth'])
     var data = {
       number: message.contact
     };
-
+    var userId = window.localStorage['user_id']
     // post route to backend
     var req = {
       method: 'POST',
-      url: 'http://localhost:3000/users/1/send_verification_code',
+      url: 'http://localhost:3000/users/'+userId+'/send_verification_code',
       data: data
     }
 
     $http(req)
-    .success(function(response){console.log(response)})
+    .success(function(response){
+      console.log(response)
+      $state.go('app.verify_code')
+    })
     .error(function(response){console.log(response)});
   }
 })
 
 .controller('VerifyCodeCtrl', function($scope, $http) {
-  $scope.message = {};
-
-  $scope.sendVerificationCode = function(message){
-    console.log(message);
+  $scope.verifyCode = function(verificationCode){
+    console.log(verificationCode);
     var data = {
-      number: message.contact
+      number: verificationCode
     };
-  // debugger
-    // post route to backend
+    var userId = window.localStorage['user_id']
     var req = {
       method: 'POST',
-      url: 'http://localhost:3000/users/1/verify_code',
+      url: 'http://localhost:3000/users/'+userId+'/verify_code',
       data: data
     }
-
+    // make sure backend returns a JSON with verification state
+    // handle state from there.
     $http(req)
-      .success(function(response){console.log(response)})
+      .success(function(response){console.log("Success: "+response)})
       .error(function(response){console.log(response)});
   }
 })
@@ -118,9 +119,9 @@ angular.module('starter.controllers', ['ng-token-auth'])
     .then(function(resp) {
       window.localStorage['user_id'] = resp.id;
       window.localStorage['user_name'] = resp.name;
-      window.localStorage['user_name'] = resp.phone_verified;
+      window.localStorage['phone_verified'] = resp.phone_verified;
       window.localStorage['activeSession'] = true;
-      $state.go('app.new_message');
+      $state.go('app.enter_user_phone');
     })
     .catch(function(resp) {
       console.log("error")
