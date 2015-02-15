@@ -23,6 +23,7 @@ angular.module('starter', ['ionic', 'starter.controllers'])
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
 
+// ROOT APP
   .state('app', {
     url: "/app",
     abstract: true,
@@ -30,6 +31,18 @@ angular.module('starter', ['ionic', 'starter.controllers'])
     controller: 'AppCtrl'
   })
 
+// SEND VERIFICATION CODE
+  .state('app.send_verification_code', {
+    url: "/send_verification_code",
+    views: {
+      'menuContent': {
+        templateUrl: "templates/send_verification_code.html",
+        controller: 'SendVerificationCodeCtrl'
+      }
+    }
+  })
+
+// NEW MESSAGE
   .state('app.new_message', {
     url: "/new_message",
     views: {
