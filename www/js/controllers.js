@@ -32,7 +32,14 @@ angular.module('starter.controllers', ['ng-token-auth'])
     $auth.authenticate('google')
     .then(function(resp) {
       $scope.user = resp;
+      // if (resp.phone_number) {
       $scope.activeSession = true;
+      // } else {
+        // display the page/modal where they enter their phonenumber
+        // on that modal, have a button that hits the send_verification_code route
+        // then next modal, have a button that hits the verify_code route
+        // then the backend needs to save the phone number as valid, ELSE this modal redisplays with errors
+      // }
     })
     .catch(function(resp) {
       console.log("error")
