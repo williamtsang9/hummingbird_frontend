@@ -1,4 +1,10 @@
-angular.module('starter.controllers', [])
+angular.module('starter.controllers', ['ng-token-auth'])
+
+.config(function($authProvider) {
+  $authProvider.configure({
+            apiUrl: 'http://localhost:3000' //your api's url
+          });
+})
 
 .controller('AppCtrl', function($scope, $ionicModal, $timeout) {
   // Form data for the login modal
@@ -21,21 +27,28 @@ angular.module('starter.controllers', [])
     $scope.modal.show();
   };
 
-  // Oauth Login
-  $scope.authenticate = function(platform){
-    console.log("we about to authenticate!!!")
+  //OAUTH SIGN IN
+  $scope.handleBtnClick = function() {
+    $auth.authenticate('google')
+    .then(function(resp) {
+      alert('something successful happened')
+    })
+    .catch(function(resp) {
+        // handle errors
+        alert('something terrible happened')
+      });
   };
 
-  // Perform the login action when the user submits the login form
-  // $scope.doLogin = function() {
-  //   console.log('Doing login', $scope.loginData);
-
-  //   // Simulate a login delay. Remove this and replace with your login
-  //   // code if using a login system
-  //   $timeout(function() {
-  //     $scope.closeLogin();
-  //   }, 1000);
-  // };
+  //OAUTH SIGN OUT
+  $scope.handleSignOutBtnClick = function() {
+      $auth.signOut()
+        .then(function(resp) {
+          // handle success response
+        })
+        .catch(function(resp) {
+          // handle error response
+        });
+    };
 })
 
 .controller('NewMessageCtrl', function($scope, $http) {
