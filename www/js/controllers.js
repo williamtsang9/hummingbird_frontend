@@ -41,16 +41,6 @@ angular.module('starter.controllers', ['ng-token-auth'])
     return window.localStorage['activeSession'] === "true";
   }
 
-      // if (resp.phone_number) {
-        // has phonenumber
-      // } else {
-        // display the page/modal where they enter their phonenumber
-        // on that modal, have a button that hits the send_verification_code route
-        // then next modal, have a button that hits the verify_code route
-        // then the backend needs to save the phone number as valid, ELSE this modal redisplays with errors
-      // }
-
-
   // //OAUTH SIGN OUT
   $scope.logout= function() {
     $auth.signOut()
@@ -61,6 +51,15 @@ angular.module('starter.controllers', ['ng-token-auth'])
     .catch(function(resp) {
       console.log("SOMETHING TERRIBLE HAS HAPPENED")
     });
+
+      // if (resp.phone_number) {
+        // has phonenumber
+      // } else {
+        // display the page/modal where they enter their phonenumber
+        // on that modal, have a button that hits the send_verification_code route
+        // then next modal, have a button that hits the verify_code route
+        // then the backend needs to save the phone number as valid, ELSE this modal redisplays with errors
+      // }
   };
 })
 
@@ -137,10 +136,33 @@ angular.module('starter.controllers', ['ng-token-auth'])
 })
 
 .controller('LoginCtrl', function($scope, $auth, $state) {
-  var skip = function() {
-    $state.go('app/new_message')
+  //OAUTH SIGN IN
+  $scope.login = function() {
+    $auth.authenticate('google')
+    .then(function(resp) {
+      $scope.user = resp;
+      window.localStorage['activeSession'] = true;
+
+    })
+    .catch(function(resp) {
+      console.log("error")
+    });
+  };
+
+  $scope.activeSession = function(){
+    return window.localStorage['activeSession'] === "true";
   }
-  console.log($scope)
-  console.log("active session: " + $scope.activeSession)
+
+  //OAUTH SIGN OUT
+  $scope.logout= function() {
+    $auth.signOut()
+    .then(function(resp) {
+      window.localStorage['activeSession'] = false;
+      console.log("WUNDABAR!!!")
+    })
+    .catch(function(resp) {
+      console.log("SOMETHING TERRIBLE HAS HAPPENED")
+    });
+  }
   // skip()
 })
