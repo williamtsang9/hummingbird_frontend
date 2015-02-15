@@ -6,51 +6,19 @@ angular.module('starter.controllers', ['ng-token-auth'])
   });
 })
 
-.controller('AppCtrl', function($scope, $ionicModal, $auth) {
-  // Create the login modal that we will use later
-  // $ionicModal.fromTemplateUrl('templates/login.html', {
-    // scope: $scope
-  // }).then(function(modal) {
-    // $scope.modal = modal;
-  // });
-
-  // // Triggered in the login modal to close it
-  // $scope.closeLogin = function() {
-  //   $scope.modal.hide();
-  // };
-
-  // // Open the login modal
-  // $scope.showLogin = function() {
-  //   $scope.modal.show();
-  // };
-
-  // //OAUTH SIGN IN
-  // $scope.login = function() {
-  //   $auth.authenticate('google')
-  //   .then(function(resp) {
-  //     $scope.user = resp;
-  //     window.localStorage['activeSession'] = true;
-
-  //   })
-  //   .catch(function(resp) {
-  //     console.log("error")
-  //   });
-  // };
-
-  // $scope.activeSession = function(){
-  //   return window.localStorage['activeSession'] === "true";
-  // }
-
-  // // //OAUTH SIGN OUT
-  // $scope.logout= function() {
-  //   $auth.signOut()
-  //   .then(function(resp) {
-  //     window.localStorage['activeSession'] = false;
-  //     console.log("WUNDABAR!!!")
-  //   })
-  //   .catch(function(resp) {
-  //     console.log("SOMETHING TERRIBLE HAS HAPPENED")
-  //   });
+.controller('AppCtrl', function($scope, $ionicModal, $auth, $state) {
+  // OAUTH SIGN OUT
+  $scope.logout = function() {
+    $auth.signOut()
+    .then(function(resp) {
+      window.localStorage.clear();
+      console.log("WUNDABAR!!!");
+      $state.go('login');
+    })
+    .catch(function(resp) {
+      console.log("SOMETHING TERRIBLE HAS HAPPENED in the AppCtrl")
+    });
+  }
 
       // if (resp.phone_number) {
         // has phonenumber
@@ -111,7 +79,11 @@ angular.module('starter.controllers', ['ng-token-auth'])
 
 
 // post new message
-.controller('NewMessageCtrl', function($scope, $http) {
+.controller('NewMessageCtrl', function($scope, $http, $state) {
+
+  if (window.localStorage['activeSession'] !== "true"){
+    $state.go('login');
+  }
   $scope.message = {};
 
   $scope.scheduleMessage = function(message){
@@ -137,12 +109,18 @@ angular.module('starter.controllers', ['ng-token-auth'])
 
 .controller('LoginCtrl', function($scope, $auth, $state) {
   //OAUTH SIGN IN
+  // later, consider changing this to phone_verified
+  if (window.localStorage['activeSession'] === "true"){
+    $state.go('app.new_message');
+  }
   $scope.login = function() {
     $auth.authenticate('google')
     .then(function(resp) {
-      $scope.user = resp;
+      window.localStorage['user_id'] = resp.id;
+      window.localStorage['user_name'] = resp.name;
+      window.localStorage['user_name'] = resp.phone_verified;
       window.localStorage['activeSession'] = true;
-
+      $state.go('app.new_message');
     })
     .catch(function(resp) {
       console.log("error")
@@ -153,16 +131,16 @@ angular.module('starter.controllers', ['ng-token-auth'])
     return window.localStorage['activeSession'] === "true";
   }
 
-  //OAUTH SIGN OUT
-  $scope.logout= function() {
-    $auth.signOut()
-    .then(function(resp) {
-      window.localStorage['activeSession'] = false;
-      console.log("WUNDABAR!!!")
-    })
-    .catch(function(resp) {
-      console.log("SOMETHING TERRIBLE HAS HAPPENED")
-    });
-  }
+  // //OAUTH SIGN OUT
+  // $scope.logout= function() {
+  //   $auth.signOut()
+  //   .then(function(resp) {
+  //     window.localStorage.clear();
+  //     console.log("WUNDABAR!!!")
+  //   })
+  //   .catch(function(resp) {
+  //     console.log("SOMETHING TERRIBLE HAS HAPPENED")
+  //   });
+  // }
   // skip()
 })
