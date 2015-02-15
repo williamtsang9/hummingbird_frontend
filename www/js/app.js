@@ -42,6 +42,17 @@ angular.module('starter', ['ionic', 'starter.controllers'])
     }
   })
 
+// VERIFY CODE
+  .state('app.verify_code', {
+    url: "/verify_code",
+    views: {
+      'menuContent': {
+        templateUrl: "templates/verify_code.html",
+        controller: 'VerifyCodeCtrl'
+      }
+    }
+  })
+
 // NEW MESSAGE
   .state('app.new_message', {
     url: "/new_message",

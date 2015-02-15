@@ -61,6 +61,30 @@ angular.module('starter.controllers', [])
   }
 })
 
+.controller('VerifyCodeCtrl', function($scope, $http) {
+  $scope.message = {};
+
+  $scope.sendVerificationCode = function(message){
+    console.log(message);
+    var data = {
+      number: message.contact
+    };
+  // debugger
+    // post route to backend
+    var req = {
+      method: 'POST',
+      url: 'http://localhost:3000/users/1/verify_code',
+      data: data
+    }
+
+    $http(req)
+      .success(function(response){console.log(response)})
+      .error(function(response){console.log(response)});
+  }
+})
+
+
+
 // post new message
 .controller('NewMessageCtrl', function($scope, $http) {
   $scope.message = {};
