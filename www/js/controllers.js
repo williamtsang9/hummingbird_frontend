@@ -23,52 +23,35 @@ angular.module('starter.controllers', ['ng-token-auth'])
   };
 
   // Open the login modal
-  $scope.login = function() {
+  $scope.showLogin = function() {
     $scope.modal.show();
   };
 
   //OAUTH SIGN IN
-  // $scope.handleBtnClick = function() {
-  //   $auth.authenticate('google')
-  //   .then(function(resp) {
-  //     var user = resp
-  //     debugger
-  //   })
-  //   .catch(function(resp) {
-  //       console.log("SOMETHING TERRIBLE HAS HAPPENED")
-  //     });
-  // };
-
-
-
-  var login = function(){
-    return $auth.authenticate('google')
-    .then(function(response) {
-      console.log(response)
-      return response
+  $scope.login = function() {
+    $auth.authenticate('google')
+    .then(function(resp) {
+      $scope.user = resp;
+      $scope.activeSession = true;
     })
     .catch(function(resp) {
-        console.log("SOMETHING TERRIBLE HAS HAPPENED")
-      });
-  }
-
-  login().then(function(resp){
-    debugger
-    $scope.user = resp.data
-  });
+      console.log("error")
+    });
+  };
 
 
+  // //OAUTH SIGN OUT
+  $scope.logout= function() {
+    $auth.signOut()
+    .then(function(resp) {
+      $scope.activeSession = false;
+      console.log("WUNDABAR!!!")
 
-  //OAUTH SIGN OUT
-  $scope.handleSignOutBtnClick = function() {
-      $auth.signOut()
-        .then(function(resp) {
-          // handle success response
-        })
-        .catch(function(resp) {
-          // handle error response
-        });
-    };
+    })
+    .catch(function(resp) {
+      console.log("SOMETHING TERRIBLE HAS HAPPENED")
+    });
+  };
 })
 
 .controller('NewMessageCtrl', function($scope, $http) {
@@ -79,7 +62,7 @@ angular.module('starter.controllers', ['ng-token-auth'])
     var data = {
       number: message.contact
     };
-  debugger
+    debugger
     // post route to backend
     var req = {
       method: 'POST',
@@ -88,7 +71,7 @@ angular.module('starter.controllers', ['ng-token-auth'])
     }
 
     $http(req)
-      .success(function(response){console.log(response)})
-      .error(function(response){console.log(response)});
+    .success(function(response){console.log(response)})
+    .error(function(response){console.log(response)});
   }
 })
