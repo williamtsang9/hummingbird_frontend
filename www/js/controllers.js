@@ -2,8 +2,8 @@ angular.module('starter.controllers', ['ng-token-auth'])
 
 .config(function($authProvider) {
   $authProvider.configure({
-            apiUrl: 'http://localhost:3000' //your api's url
-          });
+    apiUrl: 'http://localhost:3000' //your api's url
+  });
 })
 
 .controller('AppCtrl', function($scope, $ionicModal, $auth) {
@@ -46,7 +46,6 @@ angular.module('starter.controllers', ['ng-token-auth'])
     .then(function(resp) {
       $scope.activeSession = false;
       console.log("WUNDABAR!!!")
-
     })
     .catch(function(resp) {
       console.log("SOMETHING TERRIBLE HAS HAPPENED")
@@ -62,7 +61,6 @@ angular.module('starter.controllers', ['ng-token-auth'])
     var data = {
       number: message.contact
     };
-    debugger
     // post route to backend
     var req = {
       method: 'POST',
