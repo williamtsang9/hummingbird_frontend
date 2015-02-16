@@ -19,16 +19,6 @@ angular.module('starter.controllers', ['ng-token-auth'])
       console.log("SOMETHING TERRIBLE HAS HAPPENED in the AppCtrl")
     });
   }
-
-      // if (resp.phone_number) {
-        // has phonenumber
-      // } else {
-        // display the page/modal where they enter their phonenumber
-        // on that modal, have a button that hits the send_verification_code route
-        // then next modal, have a button that hits the verify_code route
-        // then the backend needs to save the phone number as valid, ELSE this modal redisplays with errors
-      // }
-  // };
 })
 
 
@@ -98,17 +88,19 @@ angular.module('starter.controllers', ['ng-token-auth'])
       send_at_datetime: message.date
     };
     var userId = localStorage.user_id
-  debugger
     // post route to backend
     var req = {
       method: 'POST',
-      // url: 'http://localhost:3000/users/1/send_verification_code',
       url: 'http://localhost:3000/users/'+userId+'/messages',
       data: data
     }
 
+
     $http(req)
-      .success(function(response){console.log(response)})
+      .success(function(response){
+        console.log(response)
+        $scope.message = {};
+      })
       .error(function(response){console.log(response)});
   }
 })
