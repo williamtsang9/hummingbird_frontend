@@ -63,7 +63,6 @@ angular.module('starter.controllers', ['ng-token-auth'])
     var data = {
       number: verificationCode
     };
-    debugger
     var userId = window.localStorage['user_id']
     var req = {
       method: 'POST',
@@ -74,8 +73,7 @@ angular.module('starter.controllers', ['ng-token-auth'])
     // handle state from there.
     $http(req)
       .success(function(response){
-        debugger
-        window.localStorage['phone_verified'] = response.phone_verified;
+          window.localStorage['phone_verified'] = response.phone_verified;
         $state.go('app.new_message');
       })
       .error(function(response){console.log(response)});
@@ -98,12 +96,13 @@ angular.module('starter.controllers', ['ng-token-auth'])
       number: message.contact,
       body: message.content
     };
+    var userId = localStorage.user_id
   debugger
     // post route to backend
     var req = {
       method: 'POST',
       // url: 'http://localhost:3000/users/1/send_verification_code',
-      url: 'http://localhost:3000/users/1/messages',
+      url: 'http://localhost:3000/users/'+userId+'/messages',
       data: data
     }
 
