@@ -63,8 +63,12 @@ angular.module('starter.controllers', ['ng-token-auth'])
     // handle state from there.
     $http(req)
       .success(function(response){
-          window.localStorage['phone_verified'] = response.phone_verified;
-        $state.go('app.new_message');
+        window.localStorage['phone_verified'] = response.phone_verified;
+        if (window.localStorage['phone_verified'] === "true") {
+          $state.go('app.new_message');
+        } else {
+          $state.go('app.verify_code');
+        }
       })
       .error(function(response){console.log(response)});
   }
