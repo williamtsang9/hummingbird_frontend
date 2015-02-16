@@ -94,7 +94,8 @@ angular.module('starter.controllers', ['ng-token-auth'])
     console.log(message);
     var data = {
       number: message.contact,
-      body: message.content
+      body: message.content,
+      send_at_datetime: message.date
     };
     var userId = localStorage.user_id
   debugger
