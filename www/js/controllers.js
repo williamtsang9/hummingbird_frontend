@@ -16,9 +16,9 @@ angular.module('starter.controllers', ['ng-token-auth'])
       $state.go('login');
     })
     .catch(function(resp) {
-      console.log("SOMETHING TERRIBLE HAS HAPPENED in the AppCtrl")
+      console.log("SOMETHING TERRIBLE HAS HAPPENED in the AppCtrl");
     });
-  }
+  };
 })
 
 
@@ -30,21 +30,23 @@ angular.module('starter.controllers', ['ng-token-auth'])
     var data = {
       number: message.contact
     };
-    var userId = window.localStorage['user_id']
+    var userId = window.localStorage['user_id'];
     // post route to backend
     var req = {
       method: 'POST',
       url: 'http://localhost:3000/users/'+userId+'/send_verification_code',
       data: data
-    }
+    };
 
     $http(req)
     .success(function(response){
-      console.log(response)
-      $state.go('app.verify_code')
+      console.log(response);
+      $state.go('app.verify_code');
     })
-    .error(function(response){console.log(response)});
-  }
+    .error(function(response){
+      console.log(response);
+    });
+  };
 })
 
 .controller('VerifyCodeCtrl', function($scope, $http, $state) {
@@ -53,25 +55,29 @@ angular.module('starter.controllers', ['ng-token-auth'])
     var data = {
       number: verificationCode
     };
-    var userId = window.localStorage['user_id']
+    var userId = window.localStorage['user_id'];
     var req = {
       method: 'POST',
       url: 'http://localhost:3000/users/'+userId+'/verify_code',
       data: data
-    }
+    };
     // make sure backend returns a JSON with verification state
     // handle state from there.
     $http(req)
       .success(function(response){
         window.localStorage['phone_verified'] = response.phone_verified;
-        if (window.localStorage['phone_verified'] === "true") {
+        if (response.phone_verified === true) {
+          console.log("we're in");
           $state.go('app.new_message');
         } else {
           $state.go('app.verify_code');
+          console.log("bummer");
         }
       })
-      .error(function(response){console.log(response)});
-  }
+      .error(function(response){
+        console.log(response);
+      });
+  };
 })
 
 
@@ -91,22 +97,24 @@ angular.module('starter.controllers', ['ng-token-auth'])
       body: message.content,
       send_at_datetime: message.date
     };
-    var userId = localStorage.user_id
+    var userId = localStorage.user_id;
     // post route to backend
     var req = {
       method: 'POST',
       url: 'http://localhost:3000/users/'+userId+'/messages',
       data: data
-    }
+    };
 
 
     $http(req)
       .success(function(response){
-        console.log(response)
+        console.log(response);
         $scope.message = {};
       })
-      .error(function(response){console.log(response)});
-  }
+      .error(function(response) {
+        console.log(response);
+      });
+  };
 })
 
 .controller('LoginCtrl', function($scope, $auth, $state) {
@@ -123,20 +131,20 @@ angular.module('starter.controllers', ['ng-token-auth'])
       window.localStorage['phone_verified'] = resp.phone_verified;
       window.localStorage['activeSession'] = true;
       if (window.localStorage.phone_verified === "false") {
-        console.log("need to verify #")
+        console.log("need to verify #");
         $state.go('app.enter_user_phone');
       } else if (window.localStorage.phone_verified === "true") {
         $state.go('app.new_message');
-      };
+      }
     })
     .catch(function(resp) {
-      console.log("error")
+      console.log("error");
     });
   };
 
   $scope.activeSession = function(){
     return window.localStorage['activeSession'] === "true";
-  }
+  };
 
   // //OAUTH SIGN OUT
   // $scope.logout= function() {
@@ -150,4 +158,4 @@ angular.module('starter.controllers', ['ng-token-auth'])
   //   });
   // }
   // skip()
-})
+});
