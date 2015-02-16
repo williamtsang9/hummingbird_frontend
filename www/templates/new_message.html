@@ -3,21 +3,30 @@
 
     <form name="messageForm" ng-submit="scheduleMessage(messageForm.$valid)" novalidate>
       <div class="list">
-        <label class="item item-input">
-          <input type="tel" ng-model="message.contact"  ng-minlength="10" ng-maxlength="11" placeholder="contact #" required>
-        </label>
-        <label class="item item-input">
-          <input type="date" ng-model="message.date" placeholder="select date">
-        </label>
+
+
           <label class="item item-input">
-            <input type="time" ng-model="message.date" placeholder="select time">
-        </label>
+            <input type="tel" name="contact" ng-model="message.contact"  ng-minlength="10" ng-maxlength="11" placeholder="contact #" required>
+            <p ng-show="messageForm.contact.$error.minlength" class="help-block">too short</p>
+            <p ng-show="messageForm.contact.$error.maxlength" class="help-block">too long</p>
+          </label>
+
         <label class="item item-input">
-          <textarea ng-model="message.content" placeholder="type your message here"></textarea>
+          <input type="date" ng-model="message.date" placeholder="select date" required>
         </label>
-                <label class="item">
+
+          <label class="item item-input">
+            <input type="time" ng-model="message.date" placeholder="select time" required>
+        </label>
+
+        <label class="item item-input">
+          <textarea ng-model="message.content" placeholder="type your message here" required></textarea>
+        </label>
+
+        <label class="item">
           <button class="button button-block button-positive" type="submit" ng-disabled="messageForm.$invalid">Schedule</button>
         </label>
+
       </div>
     </form>
 
