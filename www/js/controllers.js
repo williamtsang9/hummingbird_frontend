@@ -65,13 +65,10 @@ angular.module('starter.controllers', ['ng-token-auth'])
     // handle state from there.
     $http(req)
       .success(function(response){
-        window.localStorage['phone_verified'] = response.phone_verified;
         if (response.phone_verified === true) {
-          console.log("we're in");
           $state.go('app.new_message');
         } else {
           $state.go('app.verify_code');
-          console.log("bummer");
         }
       })
       .error(function(response){
@@ -128,12 +125,11 @@ angular.module('starter.controllers', ['ng-token-auth'])
     .then(function(resp) {
       window.localStorage['user_id'] = resp.id;
       window.localStorage['user_name'] = resp.name;
-      window.localStorage['phone_verified'] = resp.phone_verified;
       window.localStorage['activeSession'] = true;
-      if (window.localStorage.phone_verified === "false") {
+      if (resp.phone_verified === "false") {
         console.log("need to verify #");
         $state.go('app.enter_user_phone');
-      } else if (window.localStorage.phone_verified === "true") {
+      } else if (resp.phone_verified === "true") {
         $state.go('app.new_message');
       }
     })
@@ -146,16 +142,4 @@ angular.module('starter.controllers', ['ng-token-auth'])
     return window.localStorage['activeSession'] === "true";
   };
 
-  // //OAUTH SIGN OUT
-  // $scope.logout= function() {
-  //   $auth.signOut()
-  //   .then(function(resp) {
-  //     window.localStorage.clear();
-  //     console.log("WUNDABAR!!!")
-  //   })
-  //   .catch(function(resp) {
-  //     console.log("SOMETHING TERRIBLE HAS HAPPENED")
-  //   });
-  // }
-  // skip()
 });
