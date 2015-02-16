@@ -124,10 +124,8 @@ angular.module('starter.controllers', ['ng-token-auth'])
     $auth.authenticate('google')
     .then(function(resp) {
       window.localStorage['user_id'] = resp.id;
-      window.localStorage['user_name'] = resp.name;
       window.localStorage['activeSession'] = true;
       if (resp.phone_verified === "false") {
-        console.log("need to verify #");
         $state.go('app.enter_user_phone');
       } else if (resp.phone_verified === "true") {
         $state.go('app.new_message');
