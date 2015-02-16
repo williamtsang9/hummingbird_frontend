@@ -98,7 +98,7 @@ angular.module('starter.controllers', ['ng-token-auth'])
       number: message.contact,
       body: message.content
     };
-  // debugger
+  debugger
     // post route to backend
     var req = {
       method: 'POST',

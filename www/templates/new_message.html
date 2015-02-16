@@ -1,14 +1,14 @@
 <ion-view view-title="New Message">
   <ion-content>
 
-    <form name="messageForm" ng-submit="scheduleMessage(messageForm.$valid)" novalidate>
+    <form name="messageForm" ng-submit="scheduleMessage(message)" novalidate>
       <div class="list">
 
 
           <label class="item item-input">
-            <input type="tel" name="contact" ng-model="message.contact"  ng-minlength="10" ng-maxlength="11" placeholder="contact #" required>
-            <p ng-show="messageForm.contact.$error.minlength" class="help-block">too short</p>
-            <p ng-show="messageForm.contact.$error.maxlength" class="help-block">too long</p>
+            <input type="tel" name="contact" ng-model="message.contact" ui-mask="(999) 999-9999" required/>
+            <!-- <p ng-show="messageForm.contact.$error.minlength" class="help-block">too short</p>
+            <p ng-show="messageForm.contact.$error.maxlength" class="help-block">too long</p> -->
           </label>
 
         <label class="item item-input">
