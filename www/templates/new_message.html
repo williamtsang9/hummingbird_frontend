@@ -1,10 +1,10 @@
 <ion-view view-title="New Message">
   <ion-content>
 
-    <form ng-submit="scheduleMessage(message)">
+    <form name="messageForm" ng-submit="scheduleMessage(messageForm.$valid)" novalidate>
       <div class="list">
         <label class="item item-input">
-          <input type="tel" ng-model="message.contact" placeholder="contact #">      
+          <input type="tel" ng-model="message.contact"  ng-minlength="10" ng-maxlength="11" placeholder="contact #" required>
         </label>
         <label class="item item-input">
           <input type="date" ng-model="message.date" placeholder="select date">
@@ -16,10 +16,10 @@
           <textarea ng-model="message.content" placeholder="type your message here"></textarea>
         </label>
                 <label class="item">
-          <button class="button button-block button-positive" type="submit">Schedule</button>
+          <button class="button button-block button-positive" type="submit" ng-disabled="messageForm.$invalid">Schedule</button>
         </label>
       </div>
     </form>
-    
+
   </ion-content>
 </ion-view>
