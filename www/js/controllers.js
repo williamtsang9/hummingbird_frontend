@@ -176,8 +176,7 @@ angular.module('starter.controllers', ['ng-token-auth'])
     $http({
       method: 'DELETE',
       url: 'http://localhost:3000/users/'+localStorage.user_id+'/messages/'+message.id,
-    }).success(function() {
-      console.log("success!");
+    }).success(function() {console.log("success!");
     })
   }
 
@@ -202,5 +201,14 @@ angular.module('starter.controllers', ['ng-token-auth'])
       .finally(function(){
         $scope.$broadcast('scroll.refreshComplete');
       });
+  }
+    $scope.deleteMessage = function(message) {
+      $scope.deliveredMessages.splice($scope.deliveredMessages.indexOf(message), 1);
+      $http({
+        method: 'DELETE',
+        url: 'http://localhost:3000/users/'+localStorage.user_id+'/messages/'+message.id,
+      }).success(function() {
+        console.log("success!");
+      })
   }
 })
