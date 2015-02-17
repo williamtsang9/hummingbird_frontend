@@ -80,28 +80,24 @@ angular.module('starter.controllers', ['ng-token-auth'])
 
 
 // post new message
-.controller('NewMessageCtrl', function($scope, $http, $state) {
+.controller('NewMessageCtrl', function($scope, $http, $state, $ionicPopup, $timeout) {
 
   if (window.localStorage['activeSession'] !== "true"){
     $state.go('login');
   }
   $scope.message = {};
-  // var today = new Date();
-  // // debugger
-  // // console.log(today.setDate(today.getDate() - 1)
-  // var yesterday = today.setDate(today.getDate() - 86400)
-  // $scope.minDate = yesterday;
+// =========================================
 
-  var today = new Date();
-  var string = today.toString().split(" ");
-  var month = "02"
-  var year = string[2]
-  var day = string[3]
-  var time = string[4];
-  var minDate = (year + "-" + month + "-" + day);
-  console.log(minDate.toString());
-  $scope.minTime = time;
-  $scope.minDate = minDate;
+  var date = new Date();
+  var dateArray = date.toString().split(" ");
+  if (dateArray[1] === "Oct" || dateArray[1] === "Nov" || dateArray[1] === "Dec") {
+    var month = "-1";
+  } else {
+    var month = "-0";
+  }
+  $scope.dateString = dateArray[3] + month + (date.getMonth()+1) + "-" + dateArray[2]
+
+// ============================================
 
   $scope.scheduleMessage = function(message){
     console.log(message);
@@ -118,16 +114,26 @@ angular.module('starter.controllers', ['ng-token-auth'])
       data: data
     };
 
+    if (data.send_at_datetime < date ) {
+         var messageScheduledConfirmation = $ionicPopup.show({
+           title: 'Hi Username. Please schedule a date/time in the future!'
+         });
+         $timeout(function(){
+           messageScheduledConfirmation.close();
+         }, 2000);
+      } else {
+      console.log("making requests");
+      $http(req)
+        .success(function(response){
+          console.log(response);
+          $scope.message = {};
+        })
+        .error(function(response) {
+          console.log(response);
+        });
+    };
 
-    $http(req)
-      .success(function(response){
-        console.log(response);
-        $scope.message = {};
-      })
-      .error(function(response) {
-        console.log(response);
-      });
-  };
+    }
 })
 
 .controller('LoginCtrl', function($scope, $auth, $state) {

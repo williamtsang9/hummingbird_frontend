@@ -11,18 +11,16 @@
             <p ng-show="messageForm.contact.$error.maxlength" class="help-block">too long</p> -->
           </label>
 
-          <div id="datepicker" pickadate ng-model="message.date" min-date="minDate" max-date="maxDate" class="ng-isolate-scope ng-pristine ng-valid"></div>
-
-        <!-- <label class="item item-input">
-          <input type="date" ng-model="message.date" min="minDate"  placeholder="select date" required>
-        </label> -->
+        <label class="item item-input">
+          <input type="date" ng-model="message.date" min="{{dateString}}" placeholder="select date" required/>
+        </label>
 
           <label class="item item-input">
-            <input type="time" ng-model="message.date" placeholder="select time" required>
+            <input type="time" ng-model="message.date" placeholder="select time" required/>
         </label>
 
         <label class="item item-input">
-          <textarea ng-model="message.content" placeholder="type your message here" required></textarea>
+          <textarea ng-model="message.content" placeholder="type your message here" required/></textarea>
         </label>
 
         <label class="item">
