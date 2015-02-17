@@ -86,6 +86,22 @@ angular.module('starter.controllers', ['ng-token-auth'])
     $state.go('login');
   }
   $scope.message = {};
+  // var today = new Date();
+  // // debugger
+  // // console.log(today.setDate(today.getDate() - 1)
+  // var yesterday = today.setDate(today.getDate() - 86400)
+  // $scope.minDate = yesterday;
+
+  var today = new Date();
+  var string = today.toString().split(" ");
+  var month = "02"
+  var year = string[2]
+  var day = string[3]
+  var time = string[4];
+  var minDate = (year + "-" + month + "-" + day);
+  console.log(minDate.toString());
+  $scope.minTime = time;
+  $scope.minDate = minDate;
 
   $scope.scheduleMessage = function(message){
     console.log(message);
