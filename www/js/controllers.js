@@ -152,17 +152,42 @@ angular.module('starter.controllers', ['ng-token-auth'])
 
 
 .controller('ScheduledCtrl', function($scope, $auth, $state, $http) {
-    var userId = localStorage.user_id;
-    var req = {
+
+    $scope.refreshScheduled = function(){
+      var getScheduled = {
+        method: 'GET',
+        url: 'http://localhost:3000/users/'+localStorage.user_id+'/messages?sent=false',
+      };
+
+      $http(getScheduled)
+        .success(function(response) {
+          $scope.scheduledMessages = response.messages;
+        })
+        .error(function(response) {
+          console.log(response);
+        })
+        .finally(function(){
+          $scope.$broadcast('scroll.refreshComplete');
+        });
+    }
+
+
+
+})
+
+.controller('DeliveredCtrl', function($scope, $auth, $state, $http) {
+
+    var getDelivered = {
       method: 'GET',
-      url: 'http://localhost:3000/users/'+userId+'/messages',
+      url: 'http://localhost:3000/users/'+localStorage.user_id+'/messages?sent=true',
     };
 
-    $http(req)
+    $http(getDelivered)
       .success(function(response) {
-        $scope.messages = response.messages;
+        $scope.deliveredMessages = response.messages;
       })
       .error(function(response) {
         console.log(response);
       });
-});
+
+})

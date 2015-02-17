@@ -1,0 +1,14 @@
+<ion-view view-title="Delivered">
+  <ion-content>
+
+  <ion-list>
+    <ion-item ng-repeat="deliveredMessage in deliveredMessages">
+      <p>To: ({{deliveredMessage.to.slice(0,3)}}) {{deliveredMessage.to.slice(3,6)}}-{{deliveredMessage.to.slice(6,10)}}</p>
+      <p>{{deliveredMessage.body}}</p>
+      <p>{{deliveredMessage.send_at_datetime | date}}</p>
+    </ion-item>
+  </ion-list
+  </ion-content>
+</ion-view>
+
+

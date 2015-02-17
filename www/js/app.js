@@ -74,6 +74,17 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ui.mask'])
     }
   })
 
+  // DELIVERED
+  .state('app.delivered', {
+    url: "/delivered",
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/delivered/delivered.html',
+        controller: 'DeliveredCtrl'
+      }
+    }
+  })
+
   // LOGIN
 
   .state('login', {
