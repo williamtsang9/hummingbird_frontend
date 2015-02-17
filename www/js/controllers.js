@@ -148,4 +148,9 @@ angular.module('starter.controllers', ['ng-token-auth'])
     return window.localStorage['activeSession'] === "true";
   };
 
+})
+
+
+.controller('ScheduledCtrl', function($scope, $auth, $state) {
+  console.log("hello")
 });
