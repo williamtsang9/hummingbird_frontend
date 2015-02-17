@@ -64,7 +64,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ui.mask'])
     }
   })
   // SCHEDULED
-    .state('app.scheduled', {
+  .state('app.scheduled', {
     url: "/scheduled",
     views: {
       'menuContent': {

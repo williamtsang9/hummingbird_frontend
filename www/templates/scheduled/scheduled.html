@@ -1,6 +1,13 @@
 <ion-view view-title="Scheduled">
   <ion-content>
-    Hello
+
+  <ion-list>
+    <ion-item ng-repeat="message in messages">
+      <p>To: {{message.to}}</p>
+      <p>{{message.body}}</p>
+      <p>{{message.date}}</p>
+    </ion-item>
+  </ion-list
   </ion-content>
 </ion-view>
 
