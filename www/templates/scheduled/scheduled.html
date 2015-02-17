@@ -3,9 +3,9 @@
 
   <ion-list>
     <ion-item ng-repeat="message in messages">
-      <p>To: ({{message.to.slice(0,3)}}) {{message.to.slice(3,6)}} - {{message.to.slice(6,10)}}</p>
+      <p>To: ({{message.to.slice(0,3)}}) {{message.to.slice(3,6)}}-{{message.to.slice(6,10)}}</p>
       <p>{{message.body}}</p>
-      <p>{{message.date}}</p>
+      <p>{{message.send_at_datetime | date}}</p>
     </ion-item>
   </ion-list
   </ion-content>

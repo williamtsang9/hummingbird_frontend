@@ -151,17 +151,18 @@ angular.module('starter.controllers', ['ng-token-auth'])
 })
 
 
-.controller('ScheduledCtrl', function($scope, $auth, $state) {
-  $scope.messages = [
-    {
-      to: "3019640381",
-      date: "today",
-      body: "Hello how are you?"
-    },
-        {
-      to: "9999999999",
-      date: "today",
-      body: "Hello how are you?"
-    }
-  ]
+.controller('ScheduledCtrl', function($scope, $auth, $state, $http) {
+    var userId = localStorage.user_id;
+    var req = {
+      method: 'GET',
+      url: 'http://localhost:3000/users/'+userId+'/messages',
+    };
+
+    $http(req)
+      .success(function(response) {
+        $scope.messages = response.messages;
+      })
+      .error(function(response) {
+        console.log(response);
+      });
 });
