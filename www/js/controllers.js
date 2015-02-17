@@ -184,7 +184,7 @@ angular.module('starter.controllers', ['ng-token-auth'])
 
     $http(getDelivered)
       .success(function(response) {
-        $scope.deliveredMessages = response.messages;
+        $scope.deliveredMessages = response.messages.reverse();
       })
       .error(function(response) {
         console.log(response);
