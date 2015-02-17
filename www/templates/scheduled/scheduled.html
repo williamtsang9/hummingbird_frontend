@@ -3,7 +3,7 @@
 
   <ion-list>
     <ion-item ng-repeat="message in messages">
-      <p>To: {{message.to}}</p>
+      <p>To: ({{message.to.slice(0,3)}}) {{message.to.slice(3,6)}} - {{message.to.slice(6,10)}}</p>
       <p>{{message.body}}</p>
       <p>{{message.date}}</p>
     </ion-item>

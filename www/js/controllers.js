@@ -154,12 +154,12 @@ angular.module('starter.controllers', ['ng-token-auth'])
 .controller('ScheduledCtrl', function($scope, $auth, $state) {
   $scope.messages = [
     {
-      to: 3019640381,
+      to: "3019640381",
       date: "today",
       body: "Hello how are you?"
     },
         {
-      to: "999 999 9999",
+      to: "9999999999",
       date: "today",
       body: "Hello how are you?"
     }
