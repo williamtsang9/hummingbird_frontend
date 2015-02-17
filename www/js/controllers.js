@@ -80,7 +80,7 @@ angular.module('starter.controllers', ['ng-token-auth'])
 
 
 // post new message
-.controller('NewMessageCtrl', function($scope, $http, $state) {
+.controller('NewMessageCtrl', function($scope, $http, $state, $ionicPopup, $timeout) {
 
   if (window.localStorage['activeSession'] !== "true"){
     $state.go('login');
@@ -104,14 +104,22 @@ angular.module('starter.controllers', ['ng-token-auth'])
 
 
     $http(req)
-      .success(function(response){
-        console.log(response);
+      .success(function(response) {
+        var messageScheduledConfirmation = $ionicPopup.show({
+          title: 'Your message was scheduled!'
+        });
+        $timeout(function(){
+          messageScheduledConfirmation.close();
+        }, 2000);
         $scope.message = {};
       })
       .error(function(response) {
         console.log(response);
       });
   };
+
+
+
 })
 
 .controller('LoginCtrl', function($scope, $auth, $state) {
