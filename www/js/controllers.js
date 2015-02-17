@@ -171,6 +171,10 @@ angular.module('starter.controllers', ['ng-token-auth'])
         });
     }
 
+  $scope.deleteMessage = function(message) {
+    $scope.scheduledMessages.splice($scope.scheduledMessages.indexOf(message), 1);
+  }
+
 
 
 })
