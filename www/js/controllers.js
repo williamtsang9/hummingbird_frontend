@@ -173,6 +173,12 @@ angular.module('starter.controllers', ['ng-token-auth'])
 
   $scope.deleteMessage = function(message) {
     $scope.scheduledMessages.splice($scope.scheduledMessages.indexOf(message), 1);
+    $http({
+      method: 'DELETE',
+      url: 'http://localhost:3000/users/'+localStorage.user_id+'/messages/'+message.id,
+    }).success(function() {
+      console.log("success!");
+    })
   }
 
 
