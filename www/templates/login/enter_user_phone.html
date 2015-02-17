@@ -3,7 +3,7 @@
     <form ng-submit="sendVerificationCode(message)">
       <div class="list">
         <label class="item item-input">
-          <input type="tel" ng-model="message.contact" placeholder="your number">
+          <input type="tel" ng-model="message.contact" ui-mask="(999) 999-9999" required/>
         </label>
         <label class="item">
           <button class="button button-block button-positive" type="submit">Send Verification Code</button>

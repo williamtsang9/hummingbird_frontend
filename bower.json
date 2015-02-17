@@ -5,6 +5,7 @@
     "ionic": "driftyco/ionic-bower#1.0.0-beta.14"
   },
   "dependencies": {
-    "ng-token-auth": "~0.0.24"
+    "ng-token-auth": "~0.0.24",
+    "angular-ui-utils": "~0.2.1"
   }
 }
