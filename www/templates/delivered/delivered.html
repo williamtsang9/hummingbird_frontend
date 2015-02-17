@@ -1,6 +1,6 @@
 <ion-view view-title="Delivered">
   <ion-content>
-
+  <ion-refresher pulling-text="Pull to refresh" on-refresh="refreshDelivered()"></ion-refresher>
   <ion-list>
     <ion-item ng-repeat="deliveredMessage in deliveredMessages">
       <p>To: ({{deliveredMessage.to.slice(0,3)}}) {{deliveredMessage.to.slice(3,6)}}-{{deliveredMessage.to.slice(6,10)}}</p>
