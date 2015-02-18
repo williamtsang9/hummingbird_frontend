@@ -2,6 +2,7 @@
  #login-container {
   background-image: url(../img/hummingbird-background.png);
   background-size: cover;
+  height: 100%;
  }
 
 .button.button-block {
@@ -20,6 +21,10 @@
   margin-top: 100%;
 }
 
+#login-button:active {
+
+}
+
 .title-override {
   font-family: 'Fredoka One';
   font-size: 2.8em;
@@ -31,5 +36,5 @@
 
 .subtitle {
   font-size: 1em;
-  padding: 19px;
+  padding: 0px;
 }
