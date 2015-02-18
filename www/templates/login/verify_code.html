@@ -1,12 +1,12 @@
 <ion-view view-title="Verify Code">
   <ion-content>
-    <form ng-submit="verifyCode(verificationCode)">
+    <form name="verificationForm" ng-submit="verifyCode(verificationCode)">
       <div class="list">
         <label class="item item-input">
-          <input type="tel" ng-model="verificationCode" placeholder="your code">
+          <input type="tel" ng-model="verificationCode" ui-mask="999999" required/>
         </label>
         <label class="item">
-          <button class="button button-block button-positive" type="submit">Verify Code</button>
+          <button class="button button-block button-positive" ng-disabled="verificationForm.$invalid" type="submit">Verify Code</button>
         </label>
       </div>
     </form>
