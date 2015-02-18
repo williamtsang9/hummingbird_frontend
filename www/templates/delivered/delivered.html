@@ -12,7 +12,7 @@
         <ion-delete-button class="ion-minus-circled" ng-click="deleteMessage(deliveredMessage)"></ion-delete-button>
         <p>To: ({{deliveredMessage.to.slice(0,3)}}) {{deliveredMessage.to.slice(3,6)}}-{{deliveredMessage.to.slice(6,10)}}</p>
         <p>{{deliveredMessage.body}}</p>
-        <p>{{deliveredMessage.send_at_datetime | date}}</p>
+        <p>{{deliveredMessage.send_at_datetime | date : 'MMM d, y h:mm a'}}</p>
     </ion-item>
   </ion-list
   </ion-content>
