@@ -12,12 +12,13 @@
   border-radius: 5px;
   box-shadow: 3px 3px 6px #bbb;
   font-weight: bold;
+  font-family: 'Comfortaa', sans-serif;
 }
 
 #login-button {
   width: 80%;
   margin: 0 auto;
-  font-family: 'Comfortaa';
+  font-family: 'Comfortaa', sans-serif;
   margin-top: 100%;
 }
 
@@ -26,7 +27,7 @@
 }
 
 .title-override {
-  font-family: 'Fredoka One';
+  font-family: 'Fredoka One', sans-serif;
   font-size: 2.8em;
   color: #444;
   text-align: center;
@@ -37,4 +38,31 @@
 .subtitle {
   font-size: 1em;
   padding: 0px;
+}
+
+.bar.bar-stable {
+  background-color: #8a8a8a;
+}
+
+.bar.bar-stable .title {
+  color: white;
+  font-family: 'Fredoka One', sans-serif;
+}
+
+#sidebar-menu {
+  background: url(../img/hummingbird-background-flipped.png);
+  background-size: cover;
+  height: 50%;
+  margin-top: 100%;
+  opacity: 0.8;
+}
+
+.popup-head {
+  background-color : white;
+  color: black;
+}
+
+.popup-body {
+  background-color : white;
+  border-radius: 10px;
 }
