@@ -123,17 +123,22 @@ angular.module('starter.controllers', ['ng-token-auth'])
          }, 2000);
       } else {
       console.log("making requests");
-      $http(req)
-        .success(function(response){
-          console.log(response);
-          $scope.message = {};
-        })
-        .error(function(response) {
-          console.log(response);
-        });
-    };
 
-    }
+      $http(req)
+        .success(function(response) {
+        var messageScheduledConfirmation = $ionicPopup.show({
+          title: 'Your message was scheduled!'
+        });
+        $timeout(function(){
+          messageScheduledConfirmation.close();
+        }, 2000);
+        $scope.message = {};
+      })
+      .error(function(response) {
+        console.log(response);
+      });
+    };
+  }
 })
 
 .controller('LoginCtrl', function($scope, $auth, $state) {
