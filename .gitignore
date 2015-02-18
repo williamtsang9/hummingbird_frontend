@@ -1,1 +1,4 @@
 node_modules/ionic/
+bower_components/
+platforms/
+node_modules/

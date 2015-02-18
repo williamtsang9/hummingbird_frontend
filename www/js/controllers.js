@@ -167,4 +167,67 @@ angular.module('starter.controllers', ['ng-token-auth'])
     return window.localStorage['activeSession'] === "true";
   };
 
-});
+})
+
+
+.controller('ScheduledCtrl', function($scope, $auth, $state, $http) {
+
+    $scope.refreshScheduled = function(){
+      var getScheduled = {
+        method: 'GET',
+        url: 'http://localhost:3000/users/'+localStorage.user_id+'/messages?sent=false',
+      };
+
+      $http(getScheduled)
+        .success(function(response) {
+          $scope.scheduledMessages = response.messages;
+        })
+        .error(function(response) {
+          console.log(response);
+        })
+        .finally(function(){
+          $scope.$broadcast('scroll.refreshComplete');
+        });
+    }
+
+  $scope.deleteMessage = function(message) {
+    $scope.scheduledMessages.splice($scope.scheduledMessages.indexOf(message), 1);
+    $http({
+      method: 'DELETE',
+      url: 'http://localhost:3000/users/'+localStorage.user_id+'/messages/'+message.id,
+    }).success(function() {console.log("success!");
+    })
+  }
+
+
+
+})
+
+.controller('DeliveredCtrl', function($scope, $auth, $state, $http) {
+  $scope.refreshDelivered = function(){
+    var getDelivered = {
+      method: 'GET',
+      url: 'http://localhost:3000/users/'+localStorage.user_id+'/messages?sent=true',
+    };
+
+    $http(getDelivered)
+      .success(function(response) {
+        $scope.deliveredMessages = response.messages.reverse();
+      })
+      .error(function(response) {
+        console.log(response);
+      })
+      .finally(function(){
+        $scope.$broadcast('scroll.refreshComplete');
+      });
+  }
+    $scope.deleteMessage = function(message) {
+      $scope.deliveredMessages.splice($scope.deliveredMessages.indexOf(message), 1);
+      $http({
+        method: 'DELETE',
+        url: 'http://localhost:3000/users/'+localStorage.user_id+'/messages/'+message.id,
+      }).success(function() {
+        console.log("success!");
+      })
+  }
+})

@@ -1,0 +1,21 @@
+<ion-view view-title="Delivered">
+  <ion-content>
+  <ion-refresher pulling-text="Pull to refresh" on-refresh="refreshDelivered()"></ion-refresher>
+  <ion-list>
+
+    <ion-toggle ng-model="shouldShowDelete">
+      Show Delete?
+    </ion-toggle>
+
+    <ion-list show-delete="shouldShowDelete">
+      <ion-item ng-repeat="deliveredMessage in deliveredMessages">
+        <ion-delete-button class="ion-minus-circled" ng-click="deleteMessage(deliveredMessage)"></ion-delete-button>
+        <p>To: ({{deliveredMessage.to.slice(0,3)}}) {{deliveredMessage.to.slice(3,6)}}-{{deliveredMessage.to.slice(6,10)}}</p>
+        <p>{{deliveredMessage.body}}</p>
+        <p>{{deliveredMessage.send_at_datetime | date}}</p>
+    </ion-item>
+  </ion-list
+  </ion-content>
+</ion-view>
+
+

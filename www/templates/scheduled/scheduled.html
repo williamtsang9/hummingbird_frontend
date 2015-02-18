@@ -1,0 +1,23 @@
+<ion-view view-title="Scheduled">
+  <ion-content>
+    <ion-refresher pulling-text="Pull to refresh" on-refresh="refreshScheduled()"></ion-refresher>
+
+    <ion-list >
+
+      <ion-toggle ng-model="shouldShowDelete">
+        Show Delete?
+      </ion-toggle>
+
+      <ion-list show-delete="shouldShowDelete">
+        <ion-item ng-repeat="scheduledMessage in scheduledMessages">
+          <ion-delete-button class="ion-minus-circled" ng-click="deleteMessage(scheduledMessage)"></ion-delete-button>
+          <p>To: ({{scheduledMessage.to.slice(0,3)}}) {{scheduledMessage.to.slice(3,6)}}-{{scheduledMessage.to.slice(6,10)}}</p>
+          <p>{{scheduledMessage.body}}</p>
+          <p>{{scheduledMessage.send_at_datetime | date}}</p>
+        </ion-item>
+      </ion-list>
+
+    </ion-list>
+  </ion-content>
+</ion-view>
+
