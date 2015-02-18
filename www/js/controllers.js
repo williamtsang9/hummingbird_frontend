@@ -86,6 +86,18 @@ angular.module('starter.controllers', ['ng-token-auth'])
     $state.go('login');
   }
   $scope.message = {};
+// =========================================
+
+  var date = new Date();
+  var dateArray = date.toString().split(" ");
+  if (dateArray[1] === "Oct" || dateArray[1] === "Nov" || dateArray[1] === "Dec") {
+    var month = "-1";
+  } else {
+    var month = "-0";
+  }
+  $scope.dateString = dateArray[3] + month + (date.getMonth()+1) + "-" + dateArray[2]
+
+// ============================================
 
   $scope.scheduleMessage = function(message){
     console.log(message);
@@ -102,9 +114,18 @@ angular.module('starter.controllers', ['ng-token-auth'])
       data: data
     };
 
+    if (data.send_at_datetime < date ) {
+         var messageScheduledConfirmation = $ionicPopup.show({
+           title: 'Hi Username. Please schedule a date/time in the future!'
+         });
+         $timeout(function(){
+           messageScheduledConfirmation.close();
+         }, 2000);
+      } else {
+      console.log("making requests");
 
-    $http(req)
-      .success(function(response) {
+      $http(req)
+        .success(function(response) {
         var messageScheduledConfirmation = $ionicPopup.show({
           title: 'Your message was scheduled!'
         });
@@ -116,10 +137,8 @@ angular.module('starter.controllers', ['ng-token-auth'])
       .error(function(response) {
         console.log(response);
       });
-  };
-
-
-
+    };
+  }
 })
 
 .controller('LoginCtrl', function($scope, $auth, $state) {

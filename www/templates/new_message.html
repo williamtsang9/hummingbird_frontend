@@ -12,15 +12,15 @@
           </label>
 
         <label class="item item-input">
-          <input type="date" ng-model="message.date" placeholder="select date" required>
+          <input type="date" ng-model="message.date" min="{{dateString}}" placeholder="select date" required/>
         </label>
 
           <label class="item item-input">
-            <input type="time" ng-model="message.date" placeholder="select time" required>
+            <input type="time" ng-model="message.date" placeholder="select time" required/>
         </label>
 
         <label class="item item-input">
-          <textarea ng-model="message.content" placeholder="type your message here" required></textarea>
+          <textarea ng-model="message.content" placeholder="type your message here" required/></textarea>
         </label>
 
         <label class="item">
