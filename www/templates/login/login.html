@@ -1,13 +1,14 @@
 <ion-view view-title="Login">
   <ion-header-bar>
-    <h1 class="title">Welcome to Hummingbird!</h1>
+    <h1 class="title-override">Hummingbird</h1>
 <!--     <div class="buttons">
       <button class="button button-clear" ng-click="closeLogin()">Close</button>
     </div> -->
   </ion-header-bar>
-  <ion-content>
-  <label class="item">
-    <button class="button button-block button-positive" ng-click="login()" ng-hide="activeSession()">Log in with Google</button>
-  </label>
+  <ion-content id="login-container">
+    <h2 class="title-override subtitle">texts delivered when you want.</h2>
+  <!-- <label class="item"> -->
+    <button id="login-button" class="button button-block button-positive" ng-click="login()" ng-hide="activeSession()">Login with Google</button>
+  <!-- </label> -->
   </ion-content>
 </ion-view>
