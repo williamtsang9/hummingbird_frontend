@@ -63,12 +63,38 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ui.mask'])
       }
     }
   })
+  // SCHEDULED
+  .state('app.scheduled', {
+    url: "/scheduled",
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/scheduled/scheduled.html',
+        controller: 'ScheduledCtrl'
+      }
+    }
+  })
+
+  // DELIVERED
+  .state('app.delivered', {
+    url: "/delivered",
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/delivered/delivered.html',
+        controller: 'DeliveredCtrl'
+      }
+    }
+  })
+
+  // LOGIN
 
   .state('login', {
     url: "/login",
     templateUrl: "templates/login/login.html",
     controller: 'LoginCtrl'
   })
+
+
+
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/login');
