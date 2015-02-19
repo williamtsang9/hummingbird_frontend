@@ -59,10 +59,28 @@
 
 .popup-head {
   background-color : white;
+  background: url(../img/white.png) no-repeat center;
+  background-size: contain;
+  opacity: 0.7;
+  height: 128px;
   color: black;
 }
 
 .popup-body {
-  background-color : white;
+  /*background-color : white;*/
   border-radius: 10px;
+}
+
+.directions {
+  font-family: 'Comfortaa', sans-serif;
+  text-align: center;
+  padding-top: 20px;
+}
+
+.input-center {
+  text-align: center;
+}
+
+textarea {
+  height: 100px;
 }

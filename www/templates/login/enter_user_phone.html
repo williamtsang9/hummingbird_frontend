@@ -1,9 +1,11 @@
-<ion-view view-title="Enter Phone Number">
+<ion-view view-title="Welcome!">
   <ion-content>
+    <div class="list directions">Please register your phone</div>
+    <!-- <div class="list directions subtle">(Next, we'll send you a text message)</div> -->
     <form name="enterPhoneForm" ng-submit="sendVerificationCode(message)">
       <div class="list">
         <label class="item item-input">
-          <input type="tel" ng-model="message.contact" ui-mask="(999) 999-9999" required/>
+          <input class="input-center" type="tel" ng-model="message.contact" ui-mask="(999) 999-9999" required/>
         </label>
         <label class="item">
           <button ng-disabled="enterPhoneForm.$invalid" class="button button-block button-positive" type="submit">Send Verification Code</button>

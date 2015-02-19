@@ -116,7 +116,7 @@ angular.module('starter.controllers', ['ng-token-auth'])
 
     if (data.send_at_datetime < date ) {
          var messageScheduledConfirmation = $ionicPopup.show({
-           title: 'Please select a date/time in the future!'
+           title: 'That\'s in the past :('
          });
          $timeout(function(){
            messageScheduledConfirmation.close();
@@ -127,7 +127,7 @@ angular.module('starter.controllers', ['ng-token-auth'])
       $http(req)
         .success(function(response) {
         var messageScheduledConfirmation = $ionicPopup.show({
-          title: 'Your message was scheduled!'
+          title: 'Scheduled!'
         });
         $timeout(function(){
           messageScheduledConfirmation.close();

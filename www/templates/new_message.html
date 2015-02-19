@@ -1,4 +1,4 @@
-<ion-view view-title="New Message">
+<ion-view view-title="Send out a Hummingbird!">
   <ion-content>
 
     <form name="messageForm" ng-submit="scheduleMessage(message)" novalidate>
@@ -6,12 +6,14 @@
 
 
           <label class="item item-input">
+            To:&nbsp
             <input type="tel" name="contact" ng-model="message.contact" ui-mask="(999) 999-9999" required/>
             <!-- <p ng-show="messageForm.contact.$error.minlength" class="help-block">too short</p>
             <p ng-show="messageForm.contact.$error.maxlength" class="help-block">too long</p> -->
           </label>
 
         <label class="item item-input">
+
           <input type="date" ng-model="message.date" min="{{dateString}}" placeholder="select date" required/>
         </label>
 

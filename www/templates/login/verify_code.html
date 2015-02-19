@@ -1,9 +1,10 @@
-<ion-view view-title="Verify Code">
+<ion-view view-title="Verify Your Number!">
   <ion-content>
+    <div class="list directions">We texted you a special code</div>
     <form name="verificationForm" ng-submit="verifyCode(verificationCode)">
       <div class="list">
         <label class="item item-input">
-          <input type="tel" ng-model="verificationCode" ui-mask="999999" required/>
+          <input class="input-center" type="tel" ng-model="verificationCode" ui-mask="999999" required/>
         </label>
         <label class="item">
           <button class="button button-block button-positive" ng-disabled="verificationForm.$invalid" type="submit">Verify Code</button>
