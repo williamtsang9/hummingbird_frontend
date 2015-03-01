@@ -2,7 +2,7 @@ angular.module('starter.controllers', ['ng-token-auth'])
 
 .config(function($authProvider) {
   $authProvider.configure({
-    apiUrl: 'http://localhost:3000' //your api's url
+    apiUrl: 'http://hummingbird-api.herokuapp.com' //your api's url
   });
 })
 
