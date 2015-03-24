@@ -2,7 +2,7 @@ angular.module('starter.controllers', ['ng-token-auth'])
 
 .config(function($authProvider) {
   $authProvider.configure({
-    apiUrl: 'https://hummingbird-api.herokuapp.com' //your api's url
+    apiUrl: 'http://localhost:3000' //your api's url
   });
 })
 
@@ -34,7 +34,7 @@ angular.module('starter.controllers', ['ng-token-auth'])
     // post route to backend
     var req = {
       method: 'POST',
-      url: 'https://hummingbird-api.herokuapp.com/users/'+userId+'/send_verification_code',
+      url: 'http://localhost:3000/users/'+userId+'/send_verification_code',
       data: data
     };
 
@@ -58,7 +58,7 @@ angular.module('starter.controllers', ['ng-token-auth'])
     var userId = window.localStorage['user_id'];
     var req = {
       method: 'POST',
-      url: 'https://hummingbird-api.herokuapp.com/users/'+userId+'/verify_code',
+      url: 'http://localhost:3000/users/'+userId+'/verify_code',
       data: data
     };
     // make sure backend returns a JSON with verification state
@@ -110,7 +110,7 @@ angular.module('starter.controllers', ['ng-token-auth'])
     // post route to backend
     var req = {
       method: 'POST',
-      url: 'https://hummingbird-api.herokuapp.com/users/'+userId+'/messages',
+      url: 'http://localhost:3000/users/'+userId+'/messages',
       data: data
     };
 
@@ -175,7 +175,7 @@ angular.module('starter.controllers', ['ng-token-auth'])
     $scope.refreshScheduled = function(){
       var getScheduled = {
         method: 'GET',
-        url: 'https://hummingbird-api.herokuapp.com/users/'+localStorage.user_id+'/messages?sent=false',
+        url: 'http://localhost:3000/users/'+localStorage.user_id+'/messages?sent=false',
       };
 
       $http(getScheduled)
@@ -194,7 +194,7 @@ angular.module('starter.controllers', ['ng-token-auth'])
     $scope.scheduledMessages.splice($scope.scheduledMessages.indexOf(message), 1);
     $http({
       method: 'DELETE',
-      url: 'https://hummingbird-api.herokuapp.com/users/'+localStorage.user_id+'/messages/'+message.id,
+      url: 'http://localhost:3000/users/'+localStorage.user_id+'/messages/'+message.id,
     }).success(function() {console.log("success!");
     })
   }
@@ -207,7 +207,7 @@ angular.module('starter.controllers', ['ng-token-auth'])
   $scope.refreshDelivered = function(){
     var getDelivered = {
       method: 'GET',
-      url: 'https://hummingbird-api.herokuapp.com/users/'+localStorage.user_id+'/messages?sent=true',
+      url: 'http://localhost:3000/users/'+localStorage.user_id+'/messages?sent=true',
     };
 
     $http(getDelivered)
@@ -225,7 +225,7 @@ angular.module('starter.controllers', ['ng-token-auth'])
       $scope.deliveredMessages.splice($scope.deliveredMessages.indexOf(message), 1);
       $http({
         method: 'DELETE',
-        url: 'https://hummingbird-api.herokuapp.com/users/'+localStorage.user_id+'/messages/'+message.id,
+        url: 'http://localhost:3000/users/'+localStorage.user_id+'/messages/'+message.id,
       }).success(function() {
         console.log("success!");
       })
