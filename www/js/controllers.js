@@ -1,24 +1,25 @@
-angular.module('starter.controllers', ['ng-token-auth'])
+angular.module('starter.controllers', [])
 
-.config(function($authProvider) {
-  $authProvider.configure({
-    apiUrl: 'http://localhost:3000' //your api's url
-  });
-})
+// .config(function($authProvider) {
+//   $authProvider.configure({
+//     apiUrl: 'http://localhost:3000' //your api's url
+//   });
+// })
 
-.controller('AppCtrl', function($scope, $ionicModal, $auth, $state) {
+.controller('AppCtrl', function($scope, $ionicModal, $state) {
   // OAUTH SIGN OUT
-  $scope.logout = function() {
-    $auth.signOut()
-    .then(function(resp) {
-      window.localStorage.clear();
-      console.log("WUNDABAR!!!");
-      $state.go('login');
-    })
-    .catch(function(resp) {
-      console.log("SOMETHING TERRIBLE HAS HAPPENED in the AppCtrl");
-    });
-  };
+  // $scope.logout = function() {
+  //   $auth.signOut()
+  //   .then(function(resp) {
+  //     window.localStorage.clear();
+  //     console.log("WUNDABAR!!!");
+      // $state.go('login');
+  //   })
+  //   .catch(function(resp) {
+  //     console.log("SOMETHING TERRIBLE HAS HAPPENED in the AppCtrl");
+  //   });
+  // };
+  console.log("in $scope.logout")
 })
 
 
@@ -106,7 +107,7 @@ angular.module('starter.controllers', ['ng-token-auth'])
       body: message.content,
       send_at_datetime: message.date
     };
-    var userId = localStorage.user_id;
+    var userId = 1;
     // post route to backend
     var req = {
       method: 'POST',
@@ -135,32 +136,34 @@ angular.module('starter.controllers', ['ng-token-auth'])
         $scope.message = {};
       })
       .error(function(response) {
-        console.log(response);
+        console.log("error message from new message");
       });
     };
   }
 })
 
-.controller('LoginCtrl', function($scope, $auth, $state) {
+.controller('LoginCtrl', function($scope, $state) {
   //OAUTH SIGN IN
   // later, consider changing this to phone_verified
   if (window.localStorage['activeSession'] === "true"){
     $state.go('app.new_message');
   }
   $scope.login = function() {
-    $auth.authenticate('google')
-    .then(function(resp) {
-      window.localStorage['user_id'] = resp.id;
-      window.localStorage['activeSession'] = true;
-      if (resp.phone_verified === "false") {
-        $state.go('app.enter_user_phone');
-      } else if (resp.phone_verified === "true") {
-        $state.go('app.new_message');
-      }
-    })
-    .catch(function(resp) {
-      console.log("error");
-    });
+      $state.go('app.new_message')
+    // $auth.authenticate('google')
+    // .then(function(resp) {
+    //   window.localStorage['user_id'] = resp.id;
+    //   window.localStorage['activeSession'] = true;
+    //   if (resp.phone_verified === "false") {
+    //     $state.go('app.enter_user_phone');
+    //   } else if (resp.phone_verified === "true") {
+    //     $state.go('app.new_message');
+    //   }
+    // })
+    // .catch(function(resp) {
+    //   console.log("error");
+    // });
+console.log("in login controller login function")
   };
 
   $scope.activeSession = function(){
@@ -170,7 +173,7 @@ angular.module('starter.controllers', ['ng-token-auth'])
 })
 
 
-.controller('ScheduledCtrl', function($scope, $auth, $state, $http) {
+.controller('ScheduledCtrl', function($scope, $state, $http) {
 
     $scope.refreshScheduled = function(){
       var getScheduled = {
@@ -203,7 +206,7 @@ angular.module('starter.controllers', ['ng-token-auth'])
 
 })
 
-.controller('DeliveredCtrl', function($scope, $auth, $state, $http) {
+.controller('DeliveredCtrl', function($scope, $state, $http) {
   $scope.refreshDelivered = function(){
     var getDelivered = {
       method: 'GET',
