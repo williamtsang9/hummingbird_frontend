@@ -65,16 +65,16 @@ angular.module('starter.controllers', [])
     // make sure backend returns a JSON with verification state
     // handle state from there.
     $http(req)
-      .success(function(response){
-        if (response.phone_verified === true) {
-          $state.go('app.new_message');
-        } else {
-          $state.go('app.verify_code');
-        }
-      })
-      .error(function(response){
-        console.log(response);
-      });
+    .success(function(response){
+      if (response.phone_verified === true) {
+        $state.go('app.new_message');
+      } else {
+        $state.go('app.verify_code');
+      }
+    })
+    .error(function(response){
+      console.log(response);
+    });
   };
 })
 
@@ -89,25 +89,25 @@ angular.module('starter.controllers', [])
   $scope.message = {};
 // =========================================
 
-  var date = new Date();
-  var dateArray = date.toString().split(" ");
-  if (dateArray[1] === "Oct" || dateArray[1] === "Nov" || dateArray[1] === "Dec") {
-    var month = "-1";
-  } else {
-    var month = "-0";
-  }
-  $scope.dateString = dateArray[3] + month + (date.getMonth()+1) + "-" + dateArray[2]
+var date = new Date();
+var dateArray = date.toString().split(" ");
+if (dateArray[1] === "Oct" || dateArray[1] === "Nov" || dateArray[1] === "Dec") {
+  var month = "-1";
+} else {
+  var month = "-0";
+}
+$scope.dateString = dateArray[3] + month + (date.getMonth()+1) + "-" + dateArray[2]
 
 // ============================================
 
-  $scope.scheduleMessage = function(message){
-    console.log(message);
-    var data = {
-      number: message.contact,
-      body: message.content,
-      send_at_datetime: message.date
-    };
-    var userId = 1;
+$scope.scheduleMessage = function(message){
+  console.log(message);
+  var data = {
+    number: message.contact,
+    body: message.content,
+    send_at_datetime: message.date
+  };
+  var userId = 1;
     // post route to backend
     var req = {
       method: 'POST',
@@ -116,82 +116,128 @@ angular.module('starter.controllers', [])
     };
 
     if (data.send_at_datetime < date ) {
-         var messageScheduledConfirmation = $ionicPopup.show({
-           title: 'That\'s in the past :('
-         });
-         $timeout(function(){
-           messageScheduledConfirmation.close();
-         }, 2000);
-      } else {
-      console.log("making requests");
+     var messageScheduledConfirmation = $ionicPopup.show({
+       title: 'That\'s in the past :('
+     });
+     $timeout(function(){
+       messageScheduledConfirmation.close();
+     }, 2000);
+   } else {
+    console.log("making requests");
 
-      $http(req)
-        .success(function(response) {
-        var messageScheduledConfirmation = $ionicPopup.show({
-          title: 'Scheduled!'
-        });
-        $timeout(function(){
-          messageScheduledConfirmation.close();
-        }, 2000);
-        $scope.message = {};
-      })
-      .error(function(response) {
-        console.log("error message from new message");
+    $http(req)
+    .success(function(response) {
+      var messageScheduledConfirmation = $ionicPopup.show({
+        title: 'Scheduled!'
       });
-    };
-  }
+      $timeout(function(){
+        messageScheduledConfirmation.close();
+      }, 2000);
+      $scope.message = {};
+    })
+    .error(function(response) {
+      console.log("error message from new message");
+    });
+  };
+}
 })
 
-.controller('LoginCtrl', function($scope, $state) {
+.controller('LoginCtrl', function($scope, $state, $http) {
   //OAUTH SIGN IN
   // later, consider changing this to phone_verified
-  if (window.localStorage['activeSession'] === "true"){
-    $state.go('app.new_message');
-  }
-  $scope.login = function() {
-      $state.go('app.new_message')
-    // $auth.authenticate('google')
-    // .then(function(resp) {
-    //   window.localStorage['user_id'] = resp.id;
-    //   window.localStorage['activeSession'] = true;
-    //   if (resp.phone_verified === "false") {
-    //     $state.go('app.enter_user_phone');
-    //   } else if (resp.phone_verified === "true") {
-    //     $state.go('app.new_message');
-    //   }
-    // })
-    // .catch(function(resp) {
-    //   console.log("error");
-    // });
-console.log("in login controller login function")
-  };
+  // if (window.localStorage['activeSession'] === "true"){
+  //   $state.go('app.new_message');
+  // }
+  $scope.register = function() {
+    var form = document.getElementsByClassName('register')[0]
+    var phoneNumber = form.children[0].value
+    var email = form.children[1].value
+    var password = form.children[2].value
+    var data = { email: email, password_hash: password, phone_number: phoneNumber }
+    console.log(data)
+    // var hostname = "http://localhost:3000"
 
-  $scope.activeSession = function(){
-    return window.localStorage['activeSession'] === "true";
-  };
+    request = {
+      method: "POST",
+      url: 'http://localhost:3000/users',
+      data: data
+      // dataType: 'json'
+    };
+    console.log(request)
+
+    $http(request)
+    .success(function(response) {
+      console.log(response);
+      // $state.go('app.new_message')
+    })
+}
+
+//   var data = "1"
+
+//   request = $.ajax({
+//     method: "POST",
+//     url: hostname + '/register',
+//     data: data,
+//     dataType: 'json'
+//   });
+
+//   request.done(function(response) {
+//     console.log(response)
+//   })
+
+//   $scope.login = function() {
+//     $http(request)
+//     .done(function(response) {
+//       $state.go('app.new_message')
+//     })
+//     .fail(function(response) {
+
+//     })
+//     .always(function(response) {
+
+//     })
+//     // $auth.authenticate('google')
+//     // .then(function(resp) {
+//     //   window.localStorage['user_id'] = resp.id;
+//     //   window.localStorage['activeSession'] = true;
+//     //   if (resp.phone_verified === "false") {
+//     //     $state.go('app.enter_user_phone');
+//     //   } else if (resp.phone_verified === "true") {
+//     //     $state.go('app.new_message');
+//     //   }
+//     // })
+//     // .catch(function(resp) {
+//     //   console.log("error");
+//     // });
+// console.log("in login controller login function")
+// };
+
+  // $scope.activeSession = function(){
+  //   return window.localStorage['activeSession'] === "true";
+  // };
 
 })
 
 
 .controller('ScheduledCtrl', function($scope, $state, $http) {
 
-    $scope.refreshScheduled = function(){
-      var getScheduled = {
-        method: 'GET',
-        url: 'http://localhost:3000/users/'+localStorage.user_id+'/messages?sent=false',
-      };
+  $scope.refreshScheduled = function(){
+    var getScheduled = {
+      method: 'GET',
+      url: 'http://localhost:3000/users/'+localStorage.user_id+'/messages?sent=false',
+    };
 
-      $http(getScheduled)
-        .success(function(response) {
-          $scope.scheduledMessages = response.messages;
-        })
-        .error(function(response) {
-          console.log(response);
-        })
-        .finally(function(){
-          $scope.$broadcast('scroll.refreshComplete');
-        });
-    }
+    $http(getScheduled)
+    .success(function(response) {
+      $scope.scheduledMessages = response.messages;
+    })
+    .error(function(response) {
+      console.log(response);
+    })
+    .finally(function(){
+      $scope.$broadcast('scroll.refreshComplete');
+    });
+  }
 
   $scope.deleteMessage = function(message) {
     $scope.scheduledMessages.splice($scope.scheduledMessages.indexOf(message), 1);
@@ -199,7 +245,7 @@ console.log("in login controller login function")
       method: 'DELETE',
       url: 'http://localhost:3000/users/'+localStorage.user_id+'/messages/'+message.id,
     }).success(function() {console.log("success!");
-    })
+  })
   }
 
 
@@ -214,23 +260,23 @@ console.log("in login controller login function")
     };
 
     $http(getDelivered)
-      .success(function(response) {
-        $scope.deliveredMessages = response.messages.reverse();
-      })
-      .error(function(response) {
-        console.log(response);
-      })
-      .finally(function(){
-        $scope.$broadcast('scroll.refreshComplete');
-      });
+    .success(function(response) {
+      $scope.deliveredMessages = response.messages.reverse();
+    })
+    .error(function(response) {
+      console.log(response);
+    })
+    .finally(function(){
+      $scope.$broadcast('scroll.refreshComplete');
+    });
   }
-    $scope.deleteMessage = function(message) {
-      $scope.deliveredMessages.splice($scope.deliveredMessages.indexOf(message), 1);
-      $http({
-        method: 'DELETE',
-        url: 'http://localhost:3000/users/'+localStorage.user_id+'/messages/'+message.id,
-      }).success(function() {
-        console.log("success!");
-      })
+  $scope.deleteMessage = function(message) {
+    $scope.deliveredMessages.splice($scope.deliveredMessages.indexOf(message), 1);
+    $http({
+      method: 'DELETE',
+      url: 'http://localhost:3000/users/'+localStorage.user_id+'/messages/'+message.id,
+    }).success(function() {
+      console.log("success!");
+    })
   }
 })

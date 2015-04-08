@@ -26,6 +26,18 @@
 
 }
 
+.register {
+  margin: auto;
+  outline: 1px black solid;
+  width: 50%;
+}
+
+.login {
+  margin: auto;
+  outline: 1px black solid;
+  width: 50%;
+}
+
 .title-override {
   font-family: 'Fredoka One', sans-serif;
   font-size: 2.8em;

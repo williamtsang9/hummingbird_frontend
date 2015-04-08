@@ -8,7 +8,20 @@
   <div id="login-container">
     <h2 class="title-override subtitle">texts delivered when you want.</h2>
   <!-- <label class="item"> -->
-    <button id="login-button" class="button button-block button-positive" ng-click="login()" ng-hide="activeSession()">Login with Google</button>
+    <!-- <button id="login-button" class="button button-block button-positive" ng-click="login()" ng-hide="activeSession()">Login</button> -->
+    <form class="register">
+      <input type="text" name="phone_number" placeholder="Your phone number">
+      <input type="text" name="email" placeholder="Your email">
+      <input type="text" name="password" placeholder="Your password">
+      <!-- <input type="submit" value="Register"> -->
+      <button ng-click="register()">Register</button>
+    </form>
+
+    <form action="/login" method="post" class="login">
+      <input type="text" name="email" placeholder="Your email">
+      <input type="password" name="password" placeholder="Your password">
+      <input type="submit" value="Login">
+    </form>
   <!-- </label> -->
   </div>
 </ion-view>
