@@ -31,7 +31,7 @@ angular.module('starter.controllers', [])
     var data = {
       number: message.contact
     };
-    var userId = window.localStorage['user_id'];
+    var userId = window.localStorage['user_id']; // Need new way to set this
     // post route to backend
     var req = {
       method: 'POST',
@@ -157,9 +157,12 @@ $scope.scheduleMessage = function(message){
     var data = { email: email, password_hash: password, phone_number: phoneNumber }
     console.log(data)
 
+    var userId = window.localStorage['user_id']; // grabbed from other function
+
     request = {
       method: "POST",
-      url: 'http://localhost:3000/register', // double check this is right
+      url: 'http://localhost:3000/users', // using Users#Create
+      // url: 'http://localhost:3000/users/'+userId+'/register', //using Users#Register
       data: data
       // dataType: 'json'
     };
@@ -188,9 +191,12 @@ $scope.scheduleMessage = function(message){
     // double check the naming on these variables so they are logical
     console.log(data)
 
+    var userId = 1 //window.localStorage['user_id']; // need new way to set this
+    // Not sure why this keeps navigating to localhost:8100/login
+    // when the request is supposed to be hitting a different URL
     request = {
       method: "POST",
-      url: 'http://localhost:3000/users/#/login',
+      url: 'http://localhost:3000/users/'+userId+'/login',
       data: data
       // dataType: 'json'
     };
