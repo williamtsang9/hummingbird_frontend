@@ -157,7 +157,9 @@ $scope.scheduleMessage = function(message){
     var data = { email: email, password_hash: password, phone_number: phoneNumber }
     console.log(data)
 
-    var userId = window.localStorage['user_id']; // grabbed from other function
+    var userId = window.localStorage['user_id'];
+    // not sure we need this here since it isn't being passed to create
+    // but we need this if we do Users#Login which does /users/:id/login
 
     request = {
       method: "POST",
