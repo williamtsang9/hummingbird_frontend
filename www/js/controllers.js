@@ -153,13 +153,13 @@ $scope.scheduleMessage = function(message){
     var phoneNumber = form.children[0].value
     var email = form.children[1].value
     var password = form.children[2].value
+    // These variable names should be revised, because BCrypt
     var data = { email: email, password_hash: password, phone_number: phoneNumber }
     console.log(data)
-    // var hostname = "http://localhost:3000"
 
     request = {
       method: "POST",
-      url: 'http://localhost:3000/users',
+      url: 'http://localhost:3000/register', // double check this is right
       data: data
       // dataType: 'json'
     };
@@ -168,34 +168,48 @@ $scope.scheduleMessage = function(message){
     $http(request)
     .success(function(response) {
       console.log(response);
-      // $state.go('app.new_message')
+      if (response.success === "user register and saved to database") {
+        $state.go('app.enter_user_phone');
+      } else {
+        $state.go('login');
+        // How do we do error handling with Angular forms?
+        console.log("need to show some error handling on this form");
+      }
     })
-}
+  }
+// NOTE: Above function only works for new users. Need to rewrite login function.
 
-//   var data = "1"
 
-//   request = $.ajax({
-//     method: "POST",
-//     url: hostname + '/register',
-//     data: data,
-//     dataType: 'json'
-//   });
+  $scope.login = function() {
+    var form = document.getElementsByClassName('register')[0]
+    var email = form.children[0].value
+    var password = form.children[1].value
+    var data = { email: email, password_hash: password }
+    // double check the naming on these variables so they are logical
+    console.log(data)
 
-//   request.done(function(response) {
-//     console.log(response)
-//   })
+    request = {
+      method: "POST",
+      url: 'http://localhost:3000/users/#/login',
+      data: data
+      // dataType: 'json'
+    };
+    console.log(request);
 
-//   $scope.login = function() {
-//     $http(request)
-//     .done(function(response) {
-//       $state.go('app.new_message')
-//     })
-//     .fail(function(response) {
-
-//     })
-//     .always(function(response) {
-
-//     })
+    $http(request)
+    .success(function(response) {
+      console.log(response);
+      if (response.success === "user exists, set to logged in") {
+        $state.go('app.new_message');
+      } else {
+        $state.go('login');
+        // How do we do error handling with Angular forms?
+        console.log("user not found, can't log in. Need to show error");
+      }
+    })
+    console.log("in login controller login function")
+  }
+// Old OAuth function
 //     // $auth.authenticate('google')
 //     // .then(function(resp) {
 //     //   window.localStorage['user_id'] = resp.id;
@@ -209,13 +223,10 @@ $scope.scheduleMessage = function(message){
 //     // .catch(function(resp) {
 //     //   console.log("error");
 //     // });
-// console.log("in login controller login function")
-// };
 
   // $scope.activeSession = function(){
   //   return window.localStorage['activeSession'] === "true";
   // };
-
 })
 
 
