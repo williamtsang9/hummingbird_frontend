@@ -8,18 +8,18 @@ angular.module('starter.controllers', [])
 
 .controller('AppCtrl', function($scope, $ionicModal, $state) {
   // OAUTH SIGN OUT
-  // $scope.logout = function() {
+  $scope.logout = function() {
   //   $auth.signOut()
   //   .then(function(resp) {
-  //     window.localStorage.clear();
+    window.localStorage.clear();
   //     console.log("WUNDABAR!!!");
-      // $state.go('login');
-  //   })
+  $state.go('login');
+    // })
   //   .catch(function(resp) {
   //     console.log("SOMETHING TERRIBLE HAS HAPPENED in the AppCtrl");
-  //   });
-  // };
   console.log("in $scope.logout")
+  //   });
+};
 })
 
 
@@ -176,10 +176,11 @@ $scope.scheduleMessage = function(message){
 
     $http(request)
     .success(function(response) {
-      console.log(response);
-      debugger;
-      if (response.success === "success") {
+      console.log( "AJAX response: " + response);
+
+      if (response.id) {
         $state.go('app.enter_user_phone');
+        window.localStorage['user_id'] = response.id
       } else {
         $state.go('login');
         // How do we do error handling with Angular forms?
@@ -190,22 +191,21 @@ $scope.scheduleMessage = function(message){
 // NOTE: Above function only works for new users. Need to rewrite login function.
 
 
-  $scope.login = function() {
-    var inputs = document.getElementsByTagName('input')
-    console.log(inputs)
-    var email = inputs[0].value
-    var password = inputs[1].value
-    var data = {email: email, password: password}
-    // double check the naming on these variables so they are logical
-    console.log(data)
+$scope.login = function() {
+  var inputs = document.getElementsByTagName('input')
+  console.log(inputs)
+  var email = inputs[0].value
+  var password = inputs[1].value
+  debugger
 
-    // var userId = 1 //window.localStorage['user_id']; // need new way to set this
-    // Not sure why this keeps navigating to localhost:8100/login
-    // when the request is supposed to be hitting a different URL
-    request = {
-      method: "POST",
-      url: 'http://localhost:3000/users/'+userId+'/login',
-      data: data
+  var userId = window.localStorage['user_id']
+  var data = {email: email, password: password, user_id: userId}
+  console.log(data)
+
+  request = {
+    method: "POST",
+    url: 'http://localhost:3000/users/'+userId+'/login',
+    data: data
       // dataType: 'json'
     };
     console.log(request);
@@ -213,7 +213,7 @@ $scope.scheduleMessage = function(message){
     $http(request)
     .success(function(response) {
       console.log(response);
-      if (response.success === "user exists, set to logged in") {
+      if (response.id === window.localStorage['user_id']) {
         $state.go('app.new_message');
       } else {
         $state.go('login');
