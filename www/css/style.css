@@ -38,18 +38,18 @@ input#login-form {
 button.register  {
   border: 2px solid #ba2d22;
   background-color: #ad3333;
-  float: left;
   font-size: 1.0em;
   margin: auto;
-  width: 50%;
+  width: 49%;
 }
 
 button.login  {
   border: 2px solid navy;
   background-color: #0D355A;
+  float: right;
   font-size: 1.0em;
   margin: auto;
-  width: 50%;
+  width: 49%;
 }
 
 .title-override {
