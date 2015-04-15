@@ -31,8 +31,11 @@ angular.module('starter.controllers', [])
     var data = {
       number: message.contact
     };
-    var userId = window.localStorage['user_id']; // Need new way to set this
+    // Need new way to set this
+    var userId = window.localStorage['user_id'];
     // post route to backend
+    console.log("user id" + userId);
+
     var req = {
       method: 'POST',
       url: 'http://localhost:3000/users/'+userId+'/send_verification_code',
@@ -149,15 +152,16 @@ $scope.scheduleMessage = function(message){
   //   $state.go('app.new_message');
   // }
   $scope.register = function() {
-    var form = document.getElementsByClassName('register')[0]
-    var phoneNumber = form.children[0].value
-    var email = form.children[1].value
-    var password = form.children[2].value
+    var inputs = document.getElementsByTagName('input')
+    console.log(inputs)
+    var email = inputs[0].value
+    var password = inputs[1].value
     // These variable names should be revised, because BCrypt
-    var data = { email: email, password_hash: password, phone_number: phoneNumber }
+    var data = { email: email, password: password }
     console.log(data)
 
-    var userId = window.localStorage['user_id'];
+    // var userId = window.localStorage['user_id'];
+    // debugger
     // not sure we need this here since it isn't being passed to create
     // but we need this if we do Users#Login which does /users/:id/login
 
@@ -173,7 +177,8 @@ $scope.scheduleMessage = function(message){
     $http(request)
     .success(function(response) {
       console.log(response);
-      if (response.success === "user register and saved to database") {
+      debugger;
+      if (response.success === "success") {
         $state.go('app.enter_user_phone');
       } else {
         $state.go('login');
@@ -186,14 +191,15 @@ $scope.scheduleMessage = function(message){
 
 
   $scope.login = function() {
-    var form = document.getElementsByClassName('register')[0]
-    var email = form.children[0].value
-    var password = form.children[1].value
-    var data = { email: email, password_hash: password }
+    var inputs = document.getElementsByTagName('input')
+    console.log(inputs)
+    var email = inputs[0].value
+    var password = inputs[1].value
+    var data = {email: email, password: password}
     // double check the naming on these variables so they are logical
     console.log(data)
 
-    var userId = 1 //window.localStorage['user_id']; // need new way to set this
+    // var userId = 1 //window.localStorage['user_id']; // need new way to set this
     // Not sure why this keeps navigating to localhost:8100/login
     // when the request is supposed to be hitting a different URL
     request = {
