@@ -1,30 +1,25 @@
 <ion-view view-title="Login">
-  <!-- <ion-header-bar> -->
-    <h1 class="title-override">Hummingbird</h1>
+<!-- <ion-header-bar> -->
+<h1 class="title-override">Hummingbird</h1>
 <!--     <div class="buttons">
       <button class="button button-clear" ng-click="closeLogin()">Close</button>
     </div> -->
-  <!-- </ion-header-bar> -->
-  <div id="login-container">
-    <h2 class="title-override subtitle">texts delivered when you want.</h2>
-  <!-- <label class="item"> -->
-    <!-- <button id="login-button" class="button button-block button-positive" ng-click="login()" ng-hide="activeSession()">Login</button> -->
-    <ion-content>
-    <form class="register">
-      <input type="text" name="phone_number" placeholder="Your phone number">
-      <input type="text" name="email" placeholder="Your email">
-      <input type="text" name="password" placeholder="Your password">
-      <!-- <input type="submit" value="Register"> -->
-      <button ng-click="register()">Register</button>
-    </form>
-
-    <form action="/login" method="post" class="login">
-      <input type="text" name="email" placeholder="Your email">
-      <input type="password" name="password" placeholder="Your password">
-      <!-- <input type="submit" value="Login"> -->
-      <button ng-click="login()">Login</button>
-    </form>
-    </ion-content>
-  <!-- </label> -->
-  </div>
-</ion-view>
+    <!-- </ion-header-bar> -->
+    <div id="login-container">
+      <h2 class="title-override subtitle">texts delivered when you want.</h2>
+      <!-- <label class="item"> -->
+      <!-- <button id="login-button" class="button button-block button-positive" ng-click="login()" ng-hide="activeSession()">Login</button> -->
+      <div id="login-form" class="list list-inset">
+        <label class="item item-input">
+          <input type="text" name="email" placeholder="Your email">
+        </label>
+        <label class="item item-input">
+          <input type="text" name="password" placeholder="Your password">
+        </label>
+      </div>
+        <div class="button-container">
+          <button class="register block-button button-positive" ng-click="register()">Register</button>
+          <button class="login block-button button-positive" ng-click="login()">Login</button>
+        </div>
+    </div>
+  </ion-view>
