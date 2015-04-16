@@ -210,6 +210,7 @@ $scope.login = function() {
   // debugger
 
   var userId = window.localStorage['user_id']
+  console.log("on form submission, localstorage id is " + userId)
   var data = {email: email, password: password}//, user_id: userId}
   console.log(data)
 
@@ -222,11 +223,21 @@ $scope.login = function() {
     console.log(request);
 
     $http(request)
-    .success(function(response) {
+    .success(function(response, userId) {
       console.log(response);
-      console.log("local storage id is: " + userId)
-      if (response.id === userId) {
+      console.log("id from server is: " + response.id)
+      console.log("localStorage id is: " + userId)
+      if (response.id == userId) {
+        var userId = response.id;
+        console.log("in if statement")
         $state.go('app.new_message');
+      } else if (response.id === undefined) {
+        userId = response.id
+        $.scope.login(); // need to pass credentials here
+        console.log("in else if");
+        // add else if to handle existing user with no session
+        // use call back to call login() a second time
+        // after setting localStorage id
       } else {
         $state.go('login');
         var loginFailure = $ionicPopup.show({
@@ -236,10 +247,9 @@ $scope.login = function() {
        loginFailure.close();
      }, 2000);
         // How do we do error handling with Angular forms?
-        console.log("user not found, can't log in. Need to show error");
+        console.log("in else conditional");
       }
     })
-    console.log("in login controller login function")
   }
 // Old OAuth function
 //     // $auth.authenticate('google')
