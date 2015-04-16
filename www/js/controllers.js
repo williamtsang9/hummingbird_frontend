@@ -27,14 +27,15 @@ angular.module('starter.controllers', [])
   $scope.message = {};
 
   $scope.sendVerificationCode = function(message){
-    console.log(message);
-    var data = {
-      number: message.contact
-    };
-    // Need new way to set this
     var userId = window.localStorage['user_id'];
+    console.log("user id " + userId);
+    var data = {
+      number: message.contact,
+      user_id: userId
+    };
+    console.log(data);
+    // Need new way to set this
     // post route to backend
-    console.log("user id" + userId);
 
     var req = {
       method: 'POST',
@@ -55,11 +56,13 @@ angular.module('starter.controllers', [])
 
 .controller('VerifyCodeCtrl', function($scope, $http, $state) {
   $scope.verifyCode = function(verificationCode){
-    console.log(verificationCode);
-    var data = {
-      number: verificationCode
-    };
     var userId = window.localStorage['user_id'];
+    var data = {
+      number: verificationCode,
+      user_id: userId
+    };
+    console.log(data);
+
     var req = {
       method: 'POST',
       url: 'http://localhost:3000/users/'+userId+'/verify_code',
@@ -86,7 +89,8 @@ angular.module('starter.controllers', [])
 // post new message
 .controller('NewMessageCtrl', function($scope, $http, $state, $ionicPopup, $timeout) {
 
-  if (window.localStorage['activeSession'] !== "true"){
+  // if (window.localStorage['activeSession'] !== "true"){
+    if (!window.localStorage['user_id']) {
     $state.go('login');
   }
   $scope.message = {};
@@ -104,13 +108,14 @@ $scope.dateString = dateArray[3] + month + (date.getMonth()+1) + "-" + dateArray
 // ============================================
 
 $scope.scheduleMessage = function(message){
-  console.log(message);
+  var userId = window.localStorage['user_id']
   var data = {
     number: message.contact,
     body: message.content,
-    send_at_datetime: message.date
+    send_at_datetime: message.date,
+    user_id: userId
   };
-  var userId = 1;
+  console.log(data);
     // post route to backend
     var req = {
       method: 'POST',
@@ -167,12 +172,11 @@ $scope.scheduleMessage = function(message){
 
     request = {
       method: "POST",
-      url: 'http://localhost:3000/users', // using Users#Create
-      // url: 'http://localhost:3000/users/'+userId+'/register', //using Users#Register
+      url: 'http://localhost:3000/users',
       data: data
       // dataType: 'json'
     };
-    console.log(request)
+    console.log("ajax request: " + request)
 
     $http(request)
     .success(function(response) {
@@ -196,7 +200,7 @@ $scope.login = function() {
   console.log(inputs)
   var email = inputs[0].value
   var password = inputs[1].value
-  debugger
+  // debugger
 
   var userId = window.localStorage['user_id']
   var data = {email: email, password: password, user_id: userId}
