@@ -203,6 +203,7 @@ $scope.scheduleMessage = function(message){
 
 
 $scope.login = function() {
+  console.log("login function invoked");
   var inputs = document.getElementsByTagName('input')
   console.log(inputs)
   var email = inputs[0].value
@@ -225,19 +226,18 @@ $scope.login = function() {
     $http(request)
     .success(function(response, userId) {
       console.log(response);
-      console.log("id from server is: " + response.id)
-      console.log("localStorage id is: " + userId)
-      if (response.id == userId) {
-        var userId = response.id;
-        console.log("in if statement")
+      console.log("id from server is: " + response.id + " and it is type " + typeof(response.id)) // This returns 25 (the User id from the database and is a string)
+      console.log("localStorage id is: " + userId + " and it is type " + typeof(userId)) // This returns 200 and is a number
+      var conditional = (response.id === parseInt(userId, 10)); // this returns false
+      console.log("if conditional result is: " + conditional);
+      if (response.id === parseInt(userId, 10)) {
+        console.log("in if statement");
+        userId = response.id;
+        window.localStorage = userId;
+        console.log(window.localStorage);
+        // nothing in this if statement happens after the first console log
+        // ... but then if you click login again it goes to new_message
         $state.go('app.new_message');
-      } else if (response.id === undefined) {
-        userId = response.id
-        $.scope.login(); // need to pass credentials here
-        console.log("in else if");
-        // add else if to handle existing user with no session
-        // use call back to call login() a second time
-        // after setting localStorage id
       } else {
         $state.go('login');
         var loginFailure = $ionicPopup.show({
