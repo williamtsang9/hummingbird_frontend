@@ -150,12 +150,12 @@ $scope.scheduleMessage = function(message){
 }
 })
 
-.controller('LoginCtrl', function($scope, $state, $http) {
+.controller('LoginCtrl', function($scope, $state, $http, $ionicPopup, $timeout) {
   //OAUTH SIGN IN
   // later, consider changing this to phone_verified
-  // if (window.localStorage['activeSession'] === "true"){
-  //   $state.go('app.new_message');
-  // }
+  if (window.localStorage['user_id']){
+    $state.go('app.new_message');
+  }
   $scope.register = function() {
     var inputs = document.getElementsByTagName('input')
     console.log(inputs)
@@ -185,8 +185,15 @@ $scope.scheduleMessage = function(message){
       if (response.id) {
         $state.go('app.enter_user_phone');
         window.localStorage['user_id'] = response.id
+        console.log("session is :" + localStorage['user_id'])
       } else {
         $state.go('login');
+        var registrationFailure = $ionicPopup.show({
+       title: "User already exists (so login!)\'...or email/password combination isn't valid."
+     });
+     $timeout(function(){
+       registrationFailure.close();
+     }, 2000);
         // How do we do error handling with Angular forms?
         console.log("need to show some error handling on this form");
       }
@@ -203,12 +210,12 @@ $scope.login = function() {
   // debugger
 
   var userId = window.localStorage['user_id']
-  var data = {email: email, password: password, user_id: userId}
+  var data = {email: email, password: password}//, user_id: userId}
   console.log(data)
 
   request = {
     method: "POST",
-    url: 'http://localhost:3000/users/'+userId+'/login',
+    url: 'http://localhost:3000/users/' + userId + '/login',
     data: data
       // dataType: 'json'
     };
@@ -217,10 +224,17 @@ $scope.login = function() {
     $http(request)
     .success(function(response) {
       console.log(response);
-      if (response.id === window.localStorage['user_id']) {
+      console.log("local storage id is: " + userId)
+      if (response.id === userId) {
         $state.go('app.new_message');
       } else {
         $state.go('login');
+        var loginFailure = $ionicPopup.show({
+       title: "Your email/password combination isn't valid. Please try again."
+     });
+     $timeout(function(){
+       loginFailure.close();
+     }, 2000);
         // How do we do error handling with Angular forms?
         console.log("user not found, can't log in. Need to show error");
       }
