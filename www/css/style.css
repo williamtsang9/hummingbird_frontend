@@ -1,29 +1,55 @@
 /* Empty. Add your own CSS if you like */
- #login-container {
+#login-container {
   background-image: url(../img/hummingbird-background.png);
   background-size: cover;
   height: 100%;
- }
+}
 
-.button.button-block {
-  background-color: #ad3333;
+.block-button {
+  /*background-color: #ad3333;*/
   color: white;
-  border: 2px solid #ba2d22;
   border-radius: 5px;
   box-shadow: 3px 3px 6px #bbb;
   font-weight: bold;
   font-family: 'Comfortaa', sans-serif;
 }
 
-#login-button {
-  width: 80%;
-  margin: 0 auto;
+#login-form {
   font-family: 'Comfortaa', sans-serif;
-  margin-top: 100%;
+  margin: 0 auto;
+  margin-top: 80%;
+  /*opacity: 30%;*/
+  width: 50%;
+}
+
+input#login-form {
+  text-align: center;
 }
 
 #login-button:active {
 
+}
+
+.button-container {
+  margin: 2% auto;
+  max-width: 50%;
+}
+
+button.register  {
+  border: 2px solid #ba2d22;
+  background-color: #ad3333;
+  font-size: 1.0em;
+  margin: auto;
+  width: 49%;
+}
+
+button.login  {
+  border: 2px solid navy;
+  background-color: #0D355A;
+  float: right;
+  font-size: 1.0em;
+  margin: auto;
+  width: 49%;
 }
 
 .title-override {
