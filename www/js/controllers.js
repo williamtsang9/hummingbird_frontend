@@ -11,7 +11,7 @@ angular.module('starter.controllers', [])
   $scope.logout = function() {
   //   $auth.signOut()
   //   .then(function(resp) {
-    window.localStorage.clear();
+    // window.localStorage.clear();
   //     console.log("WUNDABAR!!!");
   $state.go('login');
     // })
@@ -91,9 +91,9 @@ angular.module('starter.controllers', [])
 
   // if (window.localStorage['activeSession'] !== "true"){
     if (!window.localStorage['user_id']) {
-    $state.go('login');
-  }
-  $scope.message = {};
+      $state.go('login');
+    }
+    $scope.message = {};
 // =========================================
 
 var date = new Date();
@@ -153,9 +153,26 @@ $scope.scheduleMessage = function(message){
 .controller('LoginCtrl', function($scope, $state, $http, $ionicPopup, $timeout) {
   //OAUTH SIGN IN
   // later, consider changing this to phone_verified
-  if (window.localStorage['user_id']){
-    $state.go('app.new_message');
+  function getUserId() {
+    request = {
+      method: "GET",
+      url: 'http://localhost:3000/users/new'
+    };
+
+    $http(request)
+    .success(function(response) {
+      console.log("server id if any: " + response.id);
+      console.log("server error if any: " + response.error);
+      if (response.id) {
+        window.localStorage.setItem("user_id", response.id);
+        console.log("local storage set: " + window.localStorage);
+      } else
+      window.localStorage.setItem("temp_user", "temporary");
+      console.log("server error >> temp user");
+    })
   }
+  getUserId();
+    // $state.go('app.new_message');
   $scope.register = function() {
     var inputs = document.getElementsByTagName('input')
     console.log(inputs)
@@ -176,24 +193,24 @@ $scope.scheduleMessage = function(message){
       data: data
       // dataType: 'json'
     };
-    console.log("ajax request: " + request)
+    console.log("register request: " + request)
 
     $http(request)
     .success(function(response) {
-      console.log( "AJAX response: " + response);
+      console.log( "register response: " + response);
 
       if (response.id) {
+        window.localStorage.setItem("user_id", response.id);
         $state.go('app.enter_user_phone');
-        window.localStorage['user_id'] = response.id
         console.log("session is :" + localStorage['user_id'])
       } else {
         $state.go('login');
         var registrationFailure = $ionicPopup.show({
-       title: "User already exists (so login!)\'...or email/password combination isn't valid."
-     });
-     $timeout(function(){
-       registrationFailure.close();
-     }, 2000);
+         title: "User already exists (so login!)\'...or email/password combination isn't valid."
+       });
+        $timeout(function(){
+         registrationFailure.close();
+       }, 2000);
         // How do we do error handling with Angular forms?
         console.log("need to show some error handling on this form");
       }
@@ -209,31 +226,24 @@ $scope.login = function() {
   var email = inputs[0].value
   var password = inputs[1].value
   // debugger
-
-  var userId = window.localStorage['user_id']
-  console.log("on form submission, localstorage id is " + userId)
   var data = {email: email, password: password}//, user_id: userId}
   console.log(data)
 
   request = {
     method: "POST",
-    url: 'http://localhost:3000/users/' + userId + '/login',
+    url: 'http://localhost:3000/users/'+localStorage['user_id']+'/login',
     data: data
       // dataType: 'json'
     };
     console.log(request);
 
     $http(request)
-    .success(function(response, userId) {
-      console.log(response);
+    .success(function(response) {
       console.log("id from server is: " + response.id + " and it is type " + typeof(response.id)) // This returns 25 (the User id from the database and is a string)
-      console.log("localStorage id is: " + userId + " and it is type " + typeof(userId)) // This returns 200 and is a number
-      var conditional = (response.id === parseInt(userId, 10)); // this returns false
-      console.log("if conditional result is: " + conditional);
-      if (response.id === parseInt(userId, 10)) {
+      console.log("localStorage is: " + localStorage)
+      if (response.id) {
         console.log("in if statement");
-        userId = response.id;
-        window.localStorage = userId;
+        window.localStorage.setItem("user_id", response.id);
         console.log(window.localStorage);
         // nothing in this if statement happens after the first console log
         // ... but then if you click login again it goes to new_message
@@ -241,16 +251,16 @@ $scope.login = function() {
       } else {
         $state.go('login');
         var loginFailure = $ionicPopup.show({
-       title: "Your email/password combination isn't valid. Please try again."
-     });
-     $timeout(function(){
-       loginFailure.close();
-     }, 2000);
+         title: "Your email/password combination isn't valid. Please try again."
+       });
+        $timeout(function(){
+         loginFailure.close();
+       }, 2000);
         // How do we do error handling with Angular forms?
         console.log("in else conditional");
       }
     })
-  }
+}
 // Old OAuth function
 //     // $auth.authenticate('google')
 //     // .then(function(resp) {
