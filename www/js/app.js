@@ -20,7 +20,9 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ui.mask', 'pickadate
   });
 })
 
-.config(function($stateProvider, $urlRouterProvider) {
+.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
+  $httpProvider.defaults.useXDomain = true;
+  delete $httpProvider.defaults.headers.common['X-Requested-With'];
   $stateProvider
 
 // ROOT APP
