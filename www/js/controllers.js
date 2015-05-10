@@ -2,7 +2,7 @@ angular.module('starter.controllers', [])
 
 // .config(function($authProvider) {
 //   $authProvider.configure({
-//     apiUrl: 'http://localhost:3000' //your api's url
+//     apiUrl: 'http://hummingbird-api.herokuapp.com' //your api's url
 //   });
 // })
 
@@ -39,7 +39,7 @@ angular.module('starter.controllers', [])
 
     var req = {
       method: 'POST',
-      url: 'http://localhost:3000/users/'+userId+'/send_verification_code',
+      url: 'http://hummingbird-api.herokuapp.com/users/'+userId+'/send_verification_code',
       data: data
     };
 
@@ -65,7 +65,7 @@ angular.module('starter.controllers', [])
 
     var req = {
       method: 'POST',
-      url: 'http://localhost:3000/users/'+userId+'/verify_code',
+      url: 'http://hummingbird-api.herokuapp.com/users/'+userId+'/verify_code',
       data: data
     };
     // make sure backend returns a JSON with verification state
@@ -119,7 +119,7 @@ $scope.scheduleMessage = function(message){
     // post route to backend
     var req = {
       method: 'POST',
-      url: 'http://localhost:3000/users/'+userId+'/messages',
+      url: 'http://hummingbird-api.herokuapp.com/users/'+userId+'/messages',
       data: data
     };
 
@@ -156,7 +156,7 @@ $scope.scheduleMessage = function(message){
   function getUserId() {
     request = {
       method: "GET",
-      url: 'http://localhost:3000/users/new'
+      url: 'http://hummingbird-api.herokuapp.com/users/new'
     };
 
     $http(request)
@@ -189,7 +189,7 @@ $scope.scheduleMessage = function(message){
 
     request = {
       method: "POST",
-      url: 'http://localhost:3000/users',
+      url: 'http://hummingbird-api.herokuapp.com/users',
       data: data
       // dataType: 'json'
     };
@@ -231,7 +231,7 @@ $scope.login = function() {
 
   request = {
     method: "POST",
-    url: 'http://localhost:3000/users/'+localStorage['user_id']+'/login',
+    url: 'http://hummingbird-api.herokuapp.com/users/'+localStorage['user_id']+'/login',
     data: data
       // dataType: 'json'
     };
@@ -287,7 +287,7 @@ $scope.login = function() {
   $scope.refreshScheduled = function(){
     var getScheduled = {
       method: 'GET',
-      url: 'http://localhost:3000/users/'+localStorage.user_id+'/messages?sent=false',
+      url: 'http://hummingbird-api.herokuapp.com/users/'+localStorage.user_id+'/messages?sent=false',
     };
 
     $http(getScheduled)
@@ -306,7 +306,7 @@ $scope.login = function() {
     $scope.scheduledMessages.splice($scope.scheduledMessages.indexOf(message), 1);
     $http({
       method: 'DELETE',
-      url: 'http://localhost:3000/users/'+localStorage.user_id+'/messages/'+message.id,
+      url: 'http://hummingbird-api.herokuapp.com/users/'+localStorage.user_id+'/messages/'+message.id,
     }).success(function() {console.log("success!");
   })
   }
@@ -319,7 +319,7 @@ $scope.login = function() {
   $scope.refreshDelivered = function(){
     var getDelivered = {
       method: 'GET',
-      url: 'http://localhost:3000/users/'+localStorage.user_id+'/messages?sent=true',
+      url: 'http://hummingbird-api.herokuapp.com/users/'+localStorage.user_id+'/messages?sent=true',
     };
 
     $http(getDelivered)
@@ -337,7 +337,7 @@ $scope.login = function() {
     $scope.deliveredMessages.splice($scope.deliveredMessages.indexOf(message), 1);
     $http({
       method: 'DELETE',
-      url: 'http://localhost:3000/users/'+localStorage.user_id+'/messages/'+message.id,
+      url: 'http://hummingbird-api.herokuapp.com/users/'+localStorage.user_id+'/messages/'+message.id,
     }).success(function() {
       console.log("success!");
     })
