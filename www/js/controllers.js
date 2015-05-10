@@ -161,11 +161,12 @@ $scope.scheduleMessage = function(message){
 
     $http(request)
     .success(function(response) {
+      console.log("server response: ", response);
       console.log("server id if any: " + response.id);
       console.log("server error if any: " + response.error);
       if (response.id) {
         window.localStorage.setItem("user_id", response.id);
-        console.log("local storage set: " + window.localStorage);
+        console.log("in if conditional local storage set: " + window.localStorage);
       } else
       window.localStorage.setItem("temp_user", "temporary");
       console.log("server error >> temp user");
@@ -193,7 +194,7 @@ $scope.scheduleMessage = function(message){
       data: data
       // dataType: 'json'
     };
-    console.log("register request: " + request)
+    console.log("register request: " + request.data + "to: " + request.url + " as a " + request.method + " route");
 
     $http(request)
     .success(function(response) {
