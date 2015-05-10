@@ -224,15 +224,16 @@ $scope.login = function() {
   console.log("login function invoked");
   var inputs = document.getElementsByTagName('input')
   console.log(inputs)
-  var email = inputs[0].value
-  var password = inputs[1].value
-  // debugger
-  var data = {email: email, password: password}//, user_id: userId}
-  console.log(data)
+  debugger
+  var userId = window.localStorage['user_id'];
+  var email = inputs[0].value;
+  var password = inputs[1].value;
+  var data = {email: email, password: password, user_id: userId};
+  console.log(data);
 
   request = {
     method: "POST",
-    url: 'http://hummingbird-api.herokuapp.com/users/'+localStorage['user_id']+'/login',
+    url: 'http://hummingbird-api.herokuapp.com/users/'+userId+'/login',
     data: data
       // dataType: 'json'
     };
