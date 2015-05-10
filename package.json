@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "myApp: An Ionic project",
   "dependencies": {
+    "express": "4.12.3",
     "gulp": "^3.5.6",
     "gulp-sass": "^0.7.1",
     "gulp-concat": "^2.2.0",
@@ -15,6 +16,6 @@
     "shelljs": "^0.3.0"
   },
 "scripts": {
-    "start": "node web.js"
+    "start": "node index.js"
   }
 }
