@@ -1,8 +1,11 @@
-/* Empty. Add your own CSS if you like */
-#login-container {
+/*#login-container {
   background-image: url(../img/hummingbird-background.png);
   background-size: cover;
   height: 100%;
+}*/
+
+body {
+  cursor: url('http://ionicframework.com/img/finger.png'), auto;
 }
 
 .block-button {
