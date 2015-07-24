@@ -1,7 +1,8 @@
 // development URL
-var apiUrl = "http://localhost:3000"
-    // production URL
-    // var apiUrl = "http://hummingbird-api.herokuapp.com"
+// var apiUrl = "http://localhost:3000"
+
+// production URL
+var apiUrl = "http://hummingbird-api.herokuapp.com"
 
 angular.module('starter.controllers', [])
 // .config(function($authProvider) {
