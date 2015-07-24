@@ -15,7 +15,7 @@ angular.module('starter.controllers', [])
     $scope.logout = function() {
         //   $auth.signOut()
         //   .then(function(resp) {
-        // window.localStorage.clear();
+        window.localStorage.clear();
         //     console.log("WUNDABAR!!!");
         $state.go('login');
         // })
@@ -123,7 +123,7 @@ angular.module('starter.controllers', [])
 
         var req = {
             method: 'POST',
-            url: apiUrl + '/messages',
+            url: apiUrl + '/users/'+ localStorage.user_id + '/messages',
             data: data
         };
 
