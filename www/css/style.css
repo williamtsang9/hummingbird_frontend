@@ -1,8 +1,43 @@
-/* Empty. Add your own CSS if you like */
+/* ----------- Non-Retina Screens ----------- */
+@media screen
+and (min-device-width: 1200px)
+and (max-device-width: 1600px)
+and (-webkit-min-device-pixel-ratio: 1) {
+  /*.hummingbird-background {
+    display: block;
+    max-height: 50%;
+    margin: auto;
+  }*/
+}
+
+/* ----------- Retina Screens ----------- */
+@media screen
+and (min-device-width: 1200px)
+and (max-device-width: 1600px)
+and (-webkit-min-device-pixel-ratio: 2)
+and (min-resolution: 192dpi) {
+  /*.hummingbird-background {
+    display: block;
+    max-height: 50%;
+    margin: auto;
+  }*/
+}
+
 #login-container {
-  background-image: url(../img/hummingbird-background.png);
-  background-size: cover;
+  /*background-image: url(../img/hummingbird-background.png);*/
+  /*background-size: cover;*/
   height: 100%;
+  /*width: 100%;*/
+}
+
+body {
+  cursor: url('http://ionicframework.com/img/finger.png'), auto;
+}
+
+.hummingbird-background {
+  display: block;
+  max-height: 50%;
+  margin: auto;
 }
 
 .block-button {
@@ -17,7 +52,7 @@
 #login-form {
   font-family: 'Comfortaa', sans-serif;
   margin: 0 auto;
-  margin-top: 80%;
+  /*margin-top: 80%;*/
   /*opacity: 30%;*/
   width: 50%;
 }
